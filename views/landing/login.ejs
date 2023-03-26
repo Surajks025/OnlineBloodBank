@@ -1,0 +1,57 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/common/login.css">
+
+    <title>Log In : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <section class="main">
+        <div class="flex-item">
+            <h1>For Donor</h1>
+            <form action="/login" method="post">
+                <div class="txt_field">
+                    <input type="text" name="aadhar" required>
+                    <label>Aadhar No.</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit" name="btn" value="donor">Log In</button>
+            </form>
+        </div>
+        <div class="flex-item">
+            <h1>For Employee</h1>
+            <form action="/login" method="post">
+                <div class="txt_field">
+                    <input type="text" name="aadhar" required>
+                    <label>Aadhar No.</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit" name="btn" value="employee">Log In</button>
+            </form>
+        </div>
+        <div class="flex-item">
+            <h1>For Admin</h1>
+            <form action="/login" method="post">
+                <div class="txt_field">
+                    <input type="text" name="aadhar" required>
+                    <label>Aadhar No.</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" required>
+                    <label>Password</label>
+                </div>
+                <button type="submit" name="btn" value="admin">Log In</button>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

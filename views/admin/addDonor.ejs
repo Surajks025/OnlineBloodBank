@@ -1,0 +1,119 @@
+<%-include("../common/header")%>
+    <!-- Main -->
+    <link rel="stylesheet" href="/common/registerDonor.css">
+    <title>Register : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <p class="already-registered">Already Registered ? <a href="/login">Log In</a></p>
+    <section class="main">
+        <img class="flex-img"  src="/images/registerDonor.jpg" alt="">
+        <div class="flex-item">
+            <h1>Donor Registration</h1>
+            <form action=<%= "/admin/"+adminId+"/donors/register" %> onsubmit="return validate();" method="post">
+                <label>Fill the details and Check the Condition to Enable/Activate the Register Button.</label>
+                <div class="txt_field">
+                    <input type="text" name="aadhar" id="aadharno" required minlength="12" maxlength="12">
+                    <label>Aadhar no.</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="name" minlength="4" id="dname" required>
+                    <label>Name</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="fname" minlength="4" id="fdname" required>
+                    <label>Father's Name</label>
+                </div>
+                <div class="txt_field">
+                    <input type="email" name="email" required>
+                    <label>e-mail</label>
+                </div>
+                <div>
+                    <label>Gender : &nbsp;</label>
+                    <input type="radio" name="gender" value="M" required>
+                    <label>Male</label> &nbsp; &nbsp;
+                    <input type="radio" name="gender" value="F" required>
+                    <label>Female</label> &nbsp; &nbsp;
+                    <input type="radio" name="gender" value="O" required>
+                    <label>Other</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="mobile" id="mobno" required minlength="10" maxlength="10">
+                    <label>Mobile No.</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="dob" required onfocus="(this.type=`date`)" onblur="if(!this.value) this.type=`text`" min="1963-01-01" max="2005-01-01">
+                    <label>Date of Birth</label>
+                </div>
+                <div class="txt_field">
+                    <input type="text" name="address" required>
+                    <label>Address</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="password" id="pwd" required>
+                    <label>Password</label>
+                </div>
+                <div class="txt_field">
+                    <input type="password" name="cpassword" id="cpwd" required>
+                    <label>Confirm Password</label>
+                </div>
+                <div class="checkbox">
+                    <input type="checkbox" id="chk">
+                    <label>Information provided here is valid and true as per the Aadhar card issued by Governement of India. (Check to enable/activate the register button)</label>
+                </div>
+                <button type="submit" class="submitbtn" name="btn" value="admin">Register</button>
+                <button type="reset" class="resetbtn">Reset</button>
+            </form>
+        </div>
+    </section>
+
+
+    <%-include("../common/footer")%>
+
+
+    <script>
+        function validate(){
+            const myaadhar = document.getElementById("aadharno").value;
+            const myname = document.getElementById("dname").value;
+            const myfather = document.getElementById("fdname").value;
+            const mymobile = document.getElementById("mobno").value;
+            const mypassword = document.getElementById("pwd").value;
+            const mycpassword = document.getElementById("cpwd").value;
+            const mycheckbox = document.getElementById("chk");
+            const mobileReg = /^[6-9]\d{9}/;
+            const nameReg = /[a-zA-Z]\s*/;
+            const aadharReg = /\d{12}/;
+            
+            if(!aadharReg.test(myaadhar)){
+                alert("Wrong Aadhar Number Entered.");
+                return false;
+            }
+            else if(!nameReg.test(myname)){
+                alert("Enter Proper Name.");
+                return false;
+            }
+            else if(!nameReg.test(myfather)){
+                alert("Enter Father's Name Properly.");
+                return false;
+            }
+
+            else if(!mobileReg.test(mymobile)){
+                alert("Invalid Mobile Number Entered.");
+                return false;
+            }
+            else if(mypassword !== mycpassword){
+                alert("Confirm Password does not match with the Password.");
+                return false;
+            }
+            else if(!mycheckbox.checked){
+                alert("Check the checkbox to Submit the form.");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

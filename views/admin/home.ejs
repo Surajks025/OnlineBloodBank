@@ -1,0 +1,29 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/home.css">
+    <title>Admin : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Hello, <%= adminName %></h1>
+    
+    <section class="main">
+        <div class="side-bar">
+            <table class="side-table">
+                <thead><tr><th>Admin</th></tr></thead>
+                <tbody>
+                    <tr><td><a href= <%= "/admin/"+adminId+"/donors" %> >Donors</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/employees" %>>Employee</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/hospitals" %>>Hospital</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/bloodRequests" %>>Blood Requests</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/blood" %>>Blood Inventory</a></td></tr>
+                </tbody>
+                <tfoot><tr><td></td></tr></tfoot>
+            </table>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

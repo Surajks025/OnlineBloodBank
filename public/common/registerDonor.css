@@ -1,0 +1,108 @@
+.already-registered{
+    width: 200px;
+    margin: 20px auto;
+}
+/* Main Section */
+.main{
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.flex-item{
+    color: red;
+    width: 45%;
+    background-color: rgb(232, 232, 232);
+    border-radius: 10px;
+    margin-bottom: 40px;
+}
+
+.flex-item h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 2px solid silver;
+}
+
+.flex-item form{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+form .txt_field{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 30px auto;
+    width: 100%;
+}
+
+.txt_field input{
+    width: 100%;
+    padding: 0;
+    padding-left:6px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    background: none;
+}
+
+.txt_field label{
+    position:absolute;
+    top: 50%;
+    left: 5px;
+    color: rgb(240, 134, 134);
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.txt_field input:focus ~ label, .txt_field input:valid ~ label{
+    top: -5px;
+}
+
+.checkbox{
+    margin-bottom: 30px;
+}
+
+.flex-item .submitbtn{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    color: white;
+    width: 40%;
+    height: 50px;
+    background-color: rgb(6, 128, 26);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    margin-right: 50px;
+}
+
+.flex-item .submitbtn:hover{
+    background-color: rgb(2, 80, 15);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.flex-item .resetbtn{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 16px;
+    color: white;
+    width: 40%;
+    height: 50px;
+    background-color: rgb(233, 65, 65);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.flex-item .resetbtn:hover{
+    background-color: rgb(255, 89, 89);
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.flex-img{
+    width:40%;
+    display: inline;
+    align-self: start;
+}

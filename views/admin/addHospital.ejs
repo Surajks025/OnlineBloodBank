@@ -1,0 +1,86 @@
+<%-include("../common/header")%>
+    <title>Add Hospital : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+    <fieldset>
+        <legend>Add New Hospital</legend>
+        <form action= <%= "/admin/"+adminId+"/hospitals/register" %>  method="post" onsubmit="return validate();">
+            <table>
+                <tr>
+                    <td>
+                        <label for="">Hospital Name : </label>
+                        <input type="text" name="hospitalName" id="" required>
+                    </td>
+                    <td>
+                        <label for="">Registration Number : </label>
+                        <input type="text" name="registrationNumber" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Nodal Person Name : </label>
+                        <input type="text" name="nodalPerson" required>
+                    </td>
+                    <td>
+                        <label for="">Telephone : </label>
+                        <input type="text" name="telephone" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">Address : </label>
+                        <input type="text" name="address" required>
+                    </td>
+                    <td>
+                        <label for="">Locality : </label>
+                        <input type="text" name="locality" required>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">District : </label>
+                        <select name="district" id="" required>
+                            <option value="Khordha">Khordha</option>
+                            <option value="Keonjhar">Keonjhar</option>
+                            <option value="Cuttack">Cuttack</option>
+                            <option value="Puri">Puri</option>
+                            <option value="Berhampur">Berhampur</option>
+                        </select>
+                    </td>
+                    <td>
+                        <label for="">State : </label>
+                        <select name="state" id="" required>
+                            <option value="Odisha">Odisha</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="">PIN Code : </label>
+                        <input type="text" name="pincode" id="pinc" required minlength="6" maxlength="6">
+                    </td>
+                </tr>
+            </table>
+
+            <button type="submit">Register</button>
+            <button type="reset">Reset</button>
+        </form>
+    </fieldset>
+
+    <%-include("../common/footer")%>
+    <script>
+        function validate(){
+            const pincode = document.getElementById("pinc").value;
+            const pinReg = /\d{6}/;
+            if(!pinReg.test(pincode)){
+                alert("Wrong PIN code entered.");
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    </script>
+</body>
+</html>

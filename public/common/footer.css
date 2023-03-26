@@ -1,0 +1,32 @@
+.footer{
+    margin-top: 50px;
+    background-color: rgba(0,0,0,1);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 120px;
+}
+
+.footer a{
+    text-decoration: none;
+    color: white;
+    margin-right: 20px;
+}
+
+.footer a:hover{
+    color:red;
+}
+
+.footer p{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.credit{
+    color: white;
+}
+
+.credit:hover{
+    color:red;
+}
