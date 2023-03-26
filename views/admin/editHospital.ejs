@@ -6,7 +6,7 @@
 <body>
     <%-include("navbar")%>
 
-    <h1>Add New Hospital</h1>
+    <h1> <%= hospital.hospitalName %> </h1>
 
     <section class="main">
         <div class="side-bar">
@@ -23,30 +23,30 @@
             </table>
         </div>
         <div class="main-item">
-            <form action= <%= "/admin/"+adminId+"/hospitals/register" %>  method="post" onsubmit="return validate();">
+            <form action= <%= "/admin/"+adminId+"/hospitals/"+hospital._id+"/edit" %>  method="post" onsubmit="return validate();">
                 <table class="main-table">
                     <tr>
                         <td><label for="">Hospital Name : </label></td>
-                        <td><input type="text" name="hospitalName" id="" required></td> 
+                        <td><input type="text" name="hospitalName" id="" required value="<%= hospital.hospitalName %>"></td> 
                         <td><label for="">Registration Number : </label></td>
-                        <td><input type="text" name="registrationNumber" required maxlength="9" minlength="9"></td>
+                        <td><input type="text" name="registrationNumber" required maxlength="9" minlength="9" value="<%= hospital.registrationNumber %>"></td>
                     </tr>
                     <tr>
                         <td><label for="">Nodal Person Name : </label></td>
-                        <td><input type="text" name="nodalPerson" required></td>
+                        <td><input type="text" name="nodalPerson" required value="<%= hospital.nodalPerson %>"></td>
                         <td><label for="">Telephone : </label></td>
-                        <td><input type="text" name="telephone" required maxlength="10" minlength="10"></td>
+                        <td><input type="text" name="telephone" required maxlength="10" minlength="10" value="<%= hospital.telephone %>"></td>
                     </tr>
                     <tr>
                         <td><label for="">Address : </label></td>
-                        <td><input type="text" name="address" required></td>
+                        <td><input type="text" name="address" required value="<%= hospital.address %>"></td>
                         <td><label for="">Locality : </label></td>
-                        <td><input type="text" name="locality" required></td>
+                        <td><input type="text" name="locality" required value="<%= hospital.locality %>"></td>
                     </tr>
                     <tr>
                         <td><label for="">District : </label></td>
                         <td>
-                            <select name="district" id="" required>
+                            <select name="district" id="" required value=<%= hospital.district %>>
                                 <option value="Khordha">Khordha</option>
                                 <option value="Keonjhar">Keonjhar</option>
                                 <option value="Cuttack">Cuttack</option>
@@ -56,20 +56,20 @@
                         </td>
                         <td><label for="">State : </label></td>
                         <td>
-                            <select name="state" id="" required>
+                            <select name="state" id="" required value=<%= hospital.state %>>
                                 <option value="Odisha">Odisha</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td><label for="">PIN Code : </label></td>
-                        <td><input type="text" name="pincode" id="pinc" required minlength="6" maxlength="6"></td>
+                        <td><input type="text" name="pincode" id="pinc" required minlength="6" maxlength="6" value="<%= hospital.pincode %>"></td>
                         <td></td>
                         <td></td>
                     </tr>
                     <tr>
                         <td></td>
-                        <td><button type="submit">Add</button></td>
+                        <td><button type="submit">Done</button></td>
                         <td><button type="reset">Reset</button></td>
                         <td></td>
                     </tr>

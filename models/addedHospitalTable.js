@@ -22,4 +22,8 @@ const updateHospitalTable = async (hospitalId,adminId) =>{
     await newEntry.save();
 }
 
-module.exports = {updateHospitalTable};
+const deleteHospitalTable = async (hospitalId)=>{
+    await HospitalTable.deleteOne({hospitalId : hospitalId});
+}
+
+module.exports = {updateHospitalTable,deleteHospitalTable};

@@ -54,22 +54,24 @@ table,tr,td{
 }
 
 .main-table{
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0 20px;
+}
+
+.main-table input{
     width: 100%;
-    border: 2px solid black;
-}
-
-.main-table tr{
-    border: 1px solid black;
-}
-
-.main-table tbody tr:hover{
-    background-color: rgb(226, 225, 225);
-    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
 }
 
 .main-table td{
-    border: 1px solid black;
-    text-align: center;
+    text-align: right;
+}
+
+.main-table select{
+    width: 100%;
 }
 
 .main-table th{
@@ -78,10 +80,10 @@ table,tr,td{
 }
 
 /* Add Object Button */
-.main-item button{
+.main-item form button{
     margin-top: 20px;
-    width: 15%;
-    height: 50px;
+    width: 50%;
+    height: 40px;
     background-color: rgba(218, 34, 34,1);
     border-radius: 10px;
     border: none;
@@ -89,13 +91,8 @@ table,tr,td{
     font-weight: bold;
 }
 
-.main-item button:hover{
+.main-item form button:hover{
     background-color: black;
     font-size: 15px;
     cursor: pointer;
-}
-
-.main-item a{
-    width: 10px;
-    height: 10px;
 }

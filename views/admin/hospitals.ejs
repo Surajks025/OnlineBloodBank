@@ -50,7 +50,7 @@
                             <td><%= hospital.district %></td>
                             <td><%= hospital.state %></td>
                             <td><%= hospital.pincode %></td>
-                            <td><a href="">Manage >>></a></td>
+                            <td><a href= <%= "/admin/"+adminId+"/hospitals/"+hospital._id %> >Manage >>></a></td>
                         </tr>
                     <%}) %>
                 </tbody>

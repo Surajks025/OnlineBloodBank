@@ -3,7 +3,7 @@ const express = require("express");
 // Importing custom mongoose models
 const Admin = require("../models/admin.js");
 const Donor = require("../models/donor.js");
-const {Hospital,addHospital} = require("../models/hospital.js");
+const {Hospital,addHospital,deleteHospital,editHospital} = require("../models/hospital.js");
 
 const router = new express.Router();
 
@@ -53,18 +53,71 @@ router.route("/admin/:adminId/hospitals/register")
     })
     .post(async(req,res)=>{
         const adminId = req.params.adminId;
-        if(admin){
-            try{
-                await addHospital(req.body,adminId);
-                console.log("Hospital Added Successfully.")
-                res.redirect("/admin/"+adminId+"/hospitals")
-            }
-            catch(err){
-                console.log(err);
-            }
+        try{
+            await addHospital(req.body,adminId);
+            res.redirect("/admin/"+adminId+"/hospitals")
         }
-        else{
-            console.log("Admin does not exist.")
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/hospitals/:hospitalId")
+    .get(async (req,res)=>{
+        const adminId = req.params.adminId;
+        const hospitalId = req.params.hospitalId;
+        try{
+            const hospital = await Hospital.findOne({_id : hospitalId});
+            res.render("./admin/hospital",{
+                adminId : adminId,
+                hospital : hospital
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/hospitals/:hospitalId/delete")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const hospitalId = req.params.hospitalId;
+        try{
+            await deleteHospital(hospitalId);
+            res.redirect("/admin/"+adminId+"/hospitals");
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/hospitals/:hospitalId/edit")
+    .get(async (req,res)=>{
+        const hospitalId = req.params.hospitalId;
+        const adminId = req.params.adminId;
+        try{
+            const hospital = await Hospital.findOne({_id : hospitalId});
+            res.render("./admin/editHospital",{
+                adminId : adminId,
+                hospital : hospital
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+    .post(async (req,res)=>{
+        const hospitalId = req.params.hospitalId;
+        const adminId = req.params.adminId;
+        try{
+            await editHospital(hospitalId,req.body);
+            res.redirect("/admin/"+adminId+"/hospitals");
+        }
+        catch(err){
+            console.log(err);
         }
     })
 ;
