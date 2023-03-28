@@ -1,12 +1,12 @@
 <%-include("../common/header")%>
 
     <link rel="stylesheet" href="/admin/hospital.css">
-    <title>Hospitals : Blood Bank</title>
+    <title>Donor : Blood Bank</title>
 </head>
 <body>
     <%-include("navbar")%>
 
-    <h1> <%= hospital.hospitalName %> </h1>
+    <h1> <%= donor.name %> </h1>
 
     <section class="main">
         <div class="side-bar">
@@ -26,43 +26,39 @@
             <table class="main-table">
                 <tr>
                     <td class="left-col">Name : </td>
-                    <td class="right-col"> <%= hospital.hospitalName %> </td>
+                    <td class="right-col"> <%= donor.name %> </td>
                 </tr>
                 <tr>
-                    <td class="left-col">Registration Number : </td>
-                    <td class="right-col"> <%= hospital.registrationNumber %> </td>
+                    <td class="left-col">Gender : </td>
+                    <td class="right-col"> <%= donor.gender %> </td>
                 </tr>
                 <tr>
-                    <td class="left-col">Nodal Person : </td>
-                    <td class="right-col"> <%= hospital.nodalPerson %> </td>
+                    <td class="left-col">Aadhar Number : </td>
+                    <td class="right-col"> <%= donor.aadhar %> </td>
                 </tr>
                 <tr>
-                    <td class="left-col">Telephone : </td>
-                    <td class="right-col"> <%= hospital.telephone %> </td>
+                    <td class="left-col">e-mail : </td>
+                    <td class="right-col"> <%= donor.email %> </td>
+                </tr>
+                <tr>
+                    <td class="left-col">Father's Name : </td>
+                    <td class="right-col"> <%= donor.fname %> </td>
+                </tr>
+                <tr>
+                    <td class="left-col">Mobile No. : </td>
+                    <td class="right-col"> <%= donor.mobile %> </td>
+                </tr>
+                <tr>
+                    <td class="left-col">Date of Birth : </td>
+                    <td class="right-col"> <%= donor.dob.getDate()+"/"+donor.dob.getMonth()+"/"+donor.dob.getFullYear() %> </td>
                 </tr>
                 <tr>
                     <td class="left-col">Address : </td>
-                    <td class="right-col"> <%= hospital.address %> </td>
+                    <td class="right-col"> <%= donor.address %> </td>
                 </tr>
                 <tr>
-                    <td class="left-col">Locality : </td>
-                    <td class="right-col"> <%= hospital.locality %> </td>
-                </tr>
-                <tr>
-                    <td class="left-col">District : </td>
-                    <td class="right-col"> <%= hospital.district %> </td>
-                </tr>
-                <tr>
-                    <td class="left-col">State : </td>
-                    <td class="right-col"> <%= hospital.state %> </td>
-                </tr>
-                <tr>
-                    <td class="left-col">PIN code : </td>
-                    <td class="right-col"> <%= hospital.pincode %> </td>
-                </tr>
-                <tr>
-                    <td class="left-col"><a href= <%= "/admin/"+adminId+"/hospitals/"+hospital._id+"/edit" %> ><button>Edit</button></a></td>
-                    <td class="right-col"><a href= <%= "/admin/"+adminId+"/hospitals/"+hospital._id+"/delete" %> ><button onclick="return recheck();">Delete</button></a></td>
+                    <td class="left-col"><a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/edit" %> ><button>Edit</button></a></td>
+                    <td class="right-col"><a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/delete" %> ><button onclick="return recheck();">Delete</button></a></td>
                 </tr>
             </table>
         </div>
@@ -72,7 +68,7 @@
 
     <script>
         function recheck(){
-            if(confirm("Are you sure to delete the HOSPITAL ? ")===true){
+            if(confirm("Are you sure to delete the DONOR ? ")===true){
                 return true;
             }
             else{

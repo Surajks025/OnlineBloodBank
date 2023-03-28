@@ -2,7 +2,7 @@ const express = require("express");
 
 // Importing custom mongoose models
 const Admin = require("../models/admin.js");
-const Donor = require("../models/donor.js");
+const {Donor,addDonor,deleteDonor,editDonor} = require("../models/donor.js");
 const {Hospital,addHospital,deleteHospital,editHospital} = require("../models/hospital.js");
 
 const router = new express.Router();
@@ -126,7 +126,7 @@ router.route("/admin/:adminId/donors")
     .get(async(req,res)=>{
         const adminId = req.params.adminId;
         const donors = await Donor.find();
-        res.render("admin/donors",{
+        res.render("./admin/donors",{
             donors:donors,
             adminId : adminId
         })
@@ -142,33 +142,71 @@ router.route("/admin/:adminId/donors/register")
     })
     .post( async (req,res)=>{
         const adminId = req.params.adminId;
-        const aadhar = req.body.aadhar;
-        const name = req.body.name.trim();
-        const fname = req.body.fname.trim();
-        const email = req.body.email.trim();
-        const gender = req.body.gender;
-        const mobile =  req.body.mobile;
-        const dob = new Date(req.body.dob);
-        const address = req.body.address.trim();
-        const password = req.body.password.trim();
-        const donor= new Donor({
-            aadhar : aadhar,
-            name : name,
-            fname : fname,
-            email : email,
-            gender : gender,
-            mobile : mobile,
-            dob : dob,
-            address : address,
-            password : md5(password),
-            dateOfRegistration : new Date()
-        });
         try{
-            await donor.save();
+            addDonor(req.body);
             res.redirect("/admin/"+adminId+"/donors");
         }
         catch(err){
             console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/donors/:donorId")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const donorId = req.params.donorId;
+        try{
+            const donor = await Donor.findOne({_id : donorId});
+            res.render("./admin/donor",{
+                donor : donor,
+                adminId : adminId
+            })
+        }
+        catch(err){
+            console.log("Could not find the specified Donor...")
+        }
+    })
+;
+
+router.route("/admin/:adminId/donors/:donorId/delete")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const donorId = req.params.donorId;
+        try{
+            await deleteDonor(donorId);
+            res.redirect("/admin/"+adminId+"/donors");
+        }
+        catch(err){
+            console.log("Specified Donor could not be deleted  .....");
+        }
+    })
+;
+
+router.route("/admin/:adminId/donors/:donorId/edit")
+    .get(async (req,res)=>{
+        const adminId = req.params.adminId;
+        const donorId = req.params.donorId;
+        try{
+            const donor = await Donor.findOne({_id : donorId});
+            res.render("./admin/editDonor",{
+                adminId : adminId,
+                donor : donor
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+    .post(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const donorId = req.params.donorId;
+        try{
+            await editDonor(donorId,req.body);
+            res.redirect("/admin/"+adminId+"/donors");
+        }
+        catch(err){
+            console.log("Donor could not be edited....");
         }
     })
 ;

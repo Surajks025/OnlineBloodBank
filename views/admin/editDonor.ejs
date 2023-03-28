@@ -1,0 +1,79 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/editDonor.css">
+    <title>Edit Donor : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1> <%= donor.name %> </h1>
+
+    <section class="main">
+        <div class="side-bar">
+            <table class="side-table">
+                <thead><tr><th>Admin</th></tr></thead>
+                <tbody>
+                    <tr><td><a href= <%= "/admin/"+adminId+"/donors" %> >Donors</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/employees" %>>Employee</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/hospitals" %>>Hospital</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/bloodRequests" %>>Blood Requests</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/blood" %>>Blood Inventory</a></td></tr>
+                </tbody>
+                <tfoot><tr><td></td></tr></tfoot>
+            </table>
+        </div>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/donors/"+donor._id+"/edit" %>  method="post" onsubmit="return validate();">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Name : </label></td>
+                        <td><input type="text" name="name" id="" required value="<%= donor.name %>"></td> 
+                        <td><label for="">Aadhar Number : </label></td>
+                        <td><input type="text" name="aadhar" required maxlength="9" minlength="9" value="<%= donor.aadhar %>"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Father's Name : </label></td>
+                        <td><input type="text" name="fname" required value="<%= donor.fname %>"></td>
+                        <td><label for="">Gender : </label></td>
+                        <td>
+                            <% const atr=["","",""];if(donor.gender === "M") atr[0]="checked";else if(donor.gender ==="M") atr[1] ="checked";else atr[2]="checked" %>
+                            <input type="radio" name="gender" value="M" required <%= atr[0] %> >
+                            <label>Male</label> &nbsp; &nbsp;
+                            <input type="radio" name="gender" value="F" required <%= atr[1] %>>
+                            <label>Female</label> &nbsp; &nbsp;
+                            <input type="radio" name="gender" value="O" required <%= atr[2] %> >
+                            <label>Other</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">e-mail : </label></td>
+                        <td><input type="text" name="email" required value="<%= donor.email %>"></td>
+                        <td><label for="">Mobile : </label></td>
+                        <td><input type="text" name="mobile" required value="<%= donor.mobile %>"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Date of Birth : </label></td>
+                        <td><input type="date" name="dob" required value="<%= donor.dob.getFullYear()+"-"+donor.dob.getMonth()+"-"+donor.dob.getDate() %>"></td>
+                        <td><label for="">Address : </label></td>
+                        <td><input type="text" name="address" required value="<%= donor.address %>"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">Done</button></td>
+                        <td><button type="reset">Reset</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+    
+
+    <%-include("../common/footer")%>
+    <script>
+        function validate(){
+            return true;
+        }
+    </script>
+</body>
+</html>

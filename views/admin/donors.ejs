@@ -51,7 +51,7 @@
                             <td><%= donor.dob.getDate()+"/"+donor.dob.getMonth()+"/"+donor.dob.getFullYear() %></td>
                             <td><%= donor.fname %></td>
                             <td><%= donor.address %></td>
-                            <td><a href="">Manage >>></a></td>
+                            <td><a href=<%= "/admin/"+adminId+"/donors/"+donor._id %>>Manage >>></a></td>
                         </tr>
                     <%}) %>
                 </tbody>
