@@ -45,25 +45,16 @@ const donorSchema = new mongoose.Schema({
 const Donor = new mongoose.model("Donor",donorSchema);
 
 const addDonor = async (donor) =>{
-    const aadhar = donor.aadhar;
-    const name = donor.name.trim();
-    const fname = donor.fname.trim();
-    const email = donor.email.trim();
-    const gender = donor.gender;
-    const mobile =  donor.mobile;
-    const dob = new Date(donor.dob);
-    const address = donor.address.trim();
-    const password = donor.password.trim();
     const newdonor= new Donor({
-        aadhar : aadhar,
-        name : name,
-        fname : fname,
-        email : email,
-        gender : gender,
-        mobile : mobile,
-        dob : dob,
-        address : address,
-        password : md5(password),
+        aadhar : donor.aadhar,
+        name : donor.name.trim(),
+        fname : donor.fname.trim(),
+        email : donor.email.trim(),
+        gender : donor.gender,
+        mobile : donor.mobile,
+        dob : donor.dob,
+        address : donor.address.trim(),
+        password : md5(donor.password.trim()),
         dateOfRegistration : new Date()
     });
     try{
@@ -88,14 +79,13 @@ const deleteDonor = async (donorId)=>{
 const editDonor = async (donorId,donor)=>{
     try{
         await Donor.findOneAndUpdate({_id:donorId},{
-            aadhar : donor.aadhar,
-            name : donor.name,
-            fname : donor.fname,
-            email : donor.email,
+            name : donor.name.trim(),
+            fname : donor.fname.trim(),
+            email : donor.email.trim(),
             gender : donor.gender,
             mobile : donor.mobile,
             dob : donor.dob,
-            address : donor.address
+            address : donor.address.trim()
         });
         console.log("Donor edited successfully....")
     }

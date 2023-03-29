@@ -49,12 +49,12 @@ const Hospital = new mongoose.model("Hospital",hospitalSchema);
 
 const addHospital = async (hospital,adminId)=>{
     const newHospital = new Hospital({
-        hospitalName : hospital.hospitalName,
+        hospitalName : hospital.hospitalName.trim(),
         registrationNumber : hospital.registrationNumber,
-        nodalPerson : hospital.nodalPerson,
+        nodalPerson : hospital.nodalPerson.trim(),
         telephone : hospital.telephone,
-        address : hospital.address,
-        locality : hospital.locality,
+        address : hospital.address.trim(),
+        locality : hospital.locality.trim(),
         district : hospital.district,
         state : hospital.state,
         pincode : hospital.pincode
@@ -83,12 +83,12 @@ const editHospital = async (hospitalId,hospital)=>{
     try{
         await Hospital.findOneAndUpdate({_id : hospitalId},
         {
-            hospitalName : hospital.hospitalName,
+            hospitalName : hospital.hospitalName.trim(),
             registrationNumber : hospital.registrationNumber,
-            nodalPerson : hospital.nodalPerson,
+            nodalPerson : hospital.nodalPerson.trim(),
             telephone : hospital.telephone,
-            address : hospital.address,
-            locality : hospital.locality,
+            address : hospital.address.trim(),
+            locality : hospital.locality.trim(),
             district : hospital.district,
             state : hospital.state,
             pincode : hospital.pincode

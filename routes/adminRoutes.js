@@ -4,6 +4,7 @@ const express = require("express");
 const Admin = require("../models/admin.js");
 const {Donor,addDonor,deleteDonor,editDonor} = require("../models/donor.js");
 const {Hospital,addHospital,deleteHospital,editHospital} = require("../models/hospital.js");
+const {Employee,addEmployee,deleteEmployee,editEmployee} = require("../models/employee.js");
 
 const router = new express.Router();
 
@@ -207,6 +208,95 @@ router.route("/admin/:adminId/donors/:donorId/edit")
         }
         catch(err){
             console.log("Donor could not be edited....");
+        }
+    })
+;
+
+router.route("/admin/:adminId/employees")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const employees = await Employee.find();
+        res.render("./admin/employees",{
+            adminId : adminId,
+            employees : employees
+        });
+    })
+;
+
+router.route("/admin/:adminId/employees/register")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        res.render("./admin/addEmployee",{
+            adminId : adminId
+        })
+    })
+    .post(async(req,res)=>{
+        const adminId = req.params.adminId;
+        try{
+            await addEmployee(req.body);
+            res.redirect("/admin/"+adminId+"/employees");
+        }
+        catch(err){
+            console.log("Employee could not be added....");
+        }
+    })
+;
+
+router.route("/admin/:adminId/employees/:employeeId")
+    .get(async (req,res)=>{
+        const adminId = req.params.adminId;
+        const employeeId = req.params.employeeId;
+        try{
+            const employee = await Employee.findOne({_id : employeeId});
+            res.render("./admin/employee",{
+                adminId : adminId,
+                employee : employee
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/employees/:employeeId/delete")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const employeeId = req.params.employeeId;
+        try{
+            await deleteEmployee(employeeId);
+            res.redirect("/admin/"+adminId+"/employees");
+        }
+        catch(err){
+            console.log("Specified employee Could not be deleted .....");
+        }
+    })
+;
+
+router.route("/admin/:adminId/employees/:employeeId/edit")
+    .get(async (req,res)=>{
+        const adminId = req.params.adminId;
+        const employeeId = req.params.employeeId;
+        try{
+            const employee = await Employee.findOne({_id:employeeId});
+            res.render("./admin/editEmployee",{
+                adminId : adminId,
+                employee : employee
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+    .post(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const employeeId = req.params.employeeId;
+        try{
+            await editEmployee(employeeId,req.body);
+            res.redirect("/admin/"+adminId+"/employees");
+        }
+        catch(err){
+            console.log(err);
         }
     })
 ;

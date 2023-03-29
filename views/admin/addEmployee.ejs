@@ -1,0 +1,84 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/editDonor.css">
+    <title>Add Employee : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Add New Employee</h1>
+
+    <section class="main">
+        <div class="side-bar">
+            <table class="side-table">
+                <thead><tr><th>Admin</th></tr></thead>
+                <tbody>
+                    <tr><td><a href= <%= "/admin/"+adminId+"/donors" %> >Donors</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/employees" %>>Employee</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/hospitals" %>>Hospital</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/bloodRequests" %>>Blood Requests</a></td></tr>
+                    <tr><td><a href=<%= "/admin/"+adminId+"/blood" %>>Blood Inventory</a></td></tr>
+                </tbody>
+                <tfoot><tr><td></td></tr></tfoot>
+            </table>
+        </div>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/employees/register" %>  method="post">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Name : </label></td>
+                        <td><input type="text" name="name" id="" required></td> 
+                        <td><label for="">Aadhar Number : </label></td>
+                        <td><input type="text" name="aadhar" required maxlength="12" minlength="12"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">e-mail : </label></td>
+                        <td><input type="email" name="email" required></td>
+                        <td><label for="">Mobile : </label></td>
+                        <td><input type="text" name="mobile" required maxlength="10" minlength="10"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Gender : </label></td>
+                        <td>
+                            <input type="radio" value="M" name="gender" required> 
+                            <label for="">Male</label> &nbsp; &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="gender" value="F" required> 
+                            <label for="">Female</label> &nbsp; &nbsp; &nbsp; &nbsp;
+                            <input type="radio" value="O" name="gender" required>
+                            <label for="">Other</label>
+                        </td>
+                        <td><label>Date of Birth : </label></td>
+                        <td><input type="date" name="dob" min="1962-01-01" max="2005-01-01" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Job Title : </label></td>
+                        <td>
+                            <select name="jobTitle" id="" required>
+                                <option value="Physician">Physician</option>
+                                <option value="Technician">Technician</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                        </td>
+                        <td><label for="">Address : </label></td>
+                        <td><input type="text" name="address" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Password : </label></td>
+                        <td> <input type="password" name="password" required></td>
+                        <td><label for="">Confirm Password : </label></td>
+                        <td> <input type="password" name="cpassword" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">Add</button></td>
+                        <td><button type="reset">Reset</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

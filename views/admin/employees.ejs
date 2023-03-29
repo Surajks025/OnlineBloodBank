@@ -2,12 +2,12 @@
 
     <link rel="stylesheet" href="/admin/home.css">
 
-    <title>Donors : Blood Bank</title>
+    <title>Employees : Blood Bank</title>
 </head>
 <body>
     <%-include("navbar")%>
 
-    <h1>Manage Donors</h1>
+    <h1>Manage Employees</h1>
 
     <section class="main">
         <div class="side-bar">
@@ -34,29 +34,27 @@
                         <th>e-mail</th>
                         <th>Mobile</th>
                         <th>DOB</th>
-                        <th>Father's Name</th>
-                        <th>Address</th>
+                        <th>Job Title</th>
                         <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% donors.forEach((donor,index)=>{ %>
+                    <% employees.forEach((employee,index)=>{ %>
                         <tr>
                             <td><%= index+1 %></td>
-                            <td><%= donor.aadhar %></td>
-                            <td><%= donor.name %></td>
-                            <td><%= donor.gender %></td>
-                            <td><%= donor.email %></td>
-                            <td><%= donor.mobile %></td>
-                            <td><%= donor.dob.getDate()+"/"+(donor.dob.getMonth()+1)+"/"+donor.dob.getFullYear() %></td>
-                            <td><%= donor.fname %></td>
-                            <td><%= donor.address %></td>
-                            <td><a href=<%= "/admin/"+adminId+"/donors/"+donor._id %>>Manage >>></a></td>
+                            <td><%= employee.aadhar %></td>
+                            <td><%= employee.name %></td>
+                            <td><%= employee.gender %></td>
+                            <td><%= employee.email %></td>
+                            <td><%= employee.mobile %></td>
+                            <td><%= employee.dob.getDate()+"/"+(employee.dob.getMonth()+1)+"/"+employee.dob.getFullYear() %></td>
+                            <td><%= employee.jobTitle %></td>
+                            <td><a href=<%= "/admin/"+adminId+"/employees/"+employee._id %>>Manage >>></a></td>
                         </tr>
                     <%}) %>
                 </tbody>
             </table>
-            <a href= <%= "/admin/"+adminId+"/donors/register" %> ><button>+ New Donor</button></a>
+            <a href= <%= "/admin/"+adminId+"/employees/register" %> ><button>+ New Employee</button></a>
         </div>
     </section>
 

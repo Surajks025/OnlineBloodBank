@@ -86,7 +86,7 @@ table,tr,td{
 /* Add Object Button */
 .main-item form button{
     margin-top: 20px;
-    width: 50%;
+    width: 150px;
     height: 40px;
     background-color: rgba(218, 34, 34,1);
     border-radius: 10px;

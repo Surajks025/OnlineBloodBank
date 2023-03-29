@@ -1,12 +1,12 @@
 <%-include("../common/header")%>
 
     <link rel="stylesheet" href="/admin/editDonor.css">
-    <title>Edit Donor : Blood Bank</title>
+    <title>Edit Employee : Blood Bank</title>
 </head>
 <body>
     <%-include("navbar")%>
 
-    <h1> <%= donor.name %> </h1>
+    <h1> <%= employee.name %> </h1>
 
     <section class="main">
         <div class="side-bar">
@@ -23,20 +23,26 @@
             </table>
         </div>
         <div class="main-item">
-            <form action= <%= "/admin/"+adminId+"/donors/"+donor._id+"/edit" %>  method="post">
+            <form action= <%= "/admin/"+adminId+"/employees/"+employee._id+"/edit" %>  method="post">
                 <table class="main-table">
                     <tr>
                         <td><label for="">Name : </label></td>
-                        <td><input type="text" name="name" id="" required value="<%= donor.name %>"></td> 
-                        <td><label for="">Father's Name : </label></td>
-                        <td><input type="text" name="fname" required value="<%= donor.fname %>"></td>
+                        <td><input type="text" name="name" id="" required value="<%= employee.name %>"></td> 
+                        <td><label for="">Job Title : </label></td>
+                        <td>
+                            <select name="jobTitle" required>
+                                <option value="Physician">Physician</option>
+                                <option value="Technician">Technician</option>
+                                <option value="Nurse">Nurse</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td><label for="">Date of Birth : </label></td>
-                        <td><input type="date" name="dob" required value="<%=donor.dob.getFullYear()+"-"+(donor.dob.getMonth()+1)+"-"+donor.dob.getDate()%>" min="1963-01-01" max="2005-01-01"></td>
+                        <td><input type="date" name="dob" required value="<%=employee.dob.getFullYear()+"-"+(employee.dob.getMonth()+1)+"-"+employee.dob.getDate()%>" min="1963-01-01" max="2005-01-01"></td>
                         <td><label for="">Gender : </label></td>
                         <td>
-                            <% const atr=["","",""];if(donor.gender === "M") atr[0]="checked";else if(donor.gender ==="M") atr[1] ="checked";else atr[2]="checked" %>
+                            <% const atr=["","",""];if(employee.gender === "M") atr[0]="checked";else if(employee.gender ==="M") atr[1] ="checked";else atr[2]="checked" %>
                             <input type="radio" name="gender" value="M" required <%= atr[0] %> >
                             <label>Male</label> &nbsp; &nbsp;
                             <input type="radio" name="gender" value="F" required <%= atr[1] %>>
@@ -47,13 +53,13 @@
                     </tr>
                     <tr>
                         <td><label for="">e-mail : </label></td>
-                        <td><input type="text" name="email" required value="<%= donor.email %>"></td>
+                        <td><input type="text" name="email" required value="<%= employee.email %>"></td>
                         <td><label for="">Mobile : </label></td>
-                        <td><input type="text" name="mobile" required value="<%= donor.mobile %>"></td>
+                        <td><input type="text" name="mobile" required value="<%= employee.mobile %>" minlength="10" maxlength="10"></td>
                     </tr>
                     <tr>
                         <td><label for="">Address : </label></td>
-                        <td><input type="text" name="address" required value="<%= donor.address %>"></td>
+                        <td><input type="text" name="address" required value="<%= employee.address %>"></td>
                     </tr>
                     <tr>
                         <td></td>
