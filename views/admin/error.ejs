@@ -6,10 +6,14 @@
 <body>
     <%-include("navbar")%>
 
-    <h1>Hello, <%= adminName %></h1>
+    <h1><%= message %></h1>
     
     <section class="main">
         <%- include("sidebar") %>
+        <div class="main-item">
+            
+            <a href= <%= "/admin/"+adminId+"/donors/register" %> ><button>+ Register Donor</button></a>
+        </div>
     </section>
 
     <%-include("../common/footer")%>

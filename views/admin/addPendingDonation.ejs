@@ -1,0 +1,102 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/addPendingDonation.css">
+    <title>Add Donation : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Add New Donation</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/donations/add/"+donor._id %>  method="post" onsubmit="return validate()">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Name : </label></td>
+                        <td> <%= donor.name %> </td> 
+                        <td><label for="">Aadhar Number : </label></td>
+                        <td> <%= donor.aadhar %> </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Gender : </label></td>
+                        <td> <%= donor.gender %> </td>
+                        <td><label for="">Date of Birth : </label></td>
+                        <td><%= donor.dob.getDate()+"/"+(donor.dob.getMonth()+1)+"/"+donor.dob.getFullYear() %></td>
+                    </tr>
+                    <tr>
+                        <td> <label for="">Weight(Kgs) : </label> </td>
+                        <td> <input type="number" required name="weight" id="weight"> </td>
+                        <td> <label for="">Pulse Rate(bpm) : </label> </td>
+                        <td> <input type="number" required name="pulse" id="pulse"> </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Systolic (mm Hg) : </label></td>
+                        <td> <input type="number" required name="systolic" id="systolic"> </td>
+                        <td><label for="">Diastolic (mm Hg) : </label></td>
+                        <td> <input type="number" required name="diastolic" id="diastolic"> </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Iron Level(g/dL) : </label></td>
+                        <td> <input type="number" required name="ironLevel" id="ironLevel"> </td>
+                        <td> <label for="">Temperature(&#8457)</label> </td>
+                        <td> <input type="number" required name="temperature" id="temperature"> </td>
+                    </tr>
+                    <tr id="consent">
+                        <td><input type="checkbox" required></td>
+                        <td><p>Donor is free from skin diseases at the site of Phlebotomy.</p></td>
+                        <td><input type="checkbox" required></td>
+                        <td><p>Donor is voluntarily ready to donate blood.</p></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">Approve Donation</button></td>
+                        <td><button type="reset">Reset</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+
+    <script>
+        function validate(){
+            const weight = document.getElementById("weight");
+            const pulse = document.getElementById("pulse");
+            const systolic  = document.getElementById("systolic");
+            const diastolic = document.getElementById("diastolic");
+            const ironLevel = document.getElementById("ironLevel");
+            const temperature = document.getElementById("temperature");
+
+            if(pulse<50 || pulse>100){
+                alert("The Donor cannot donate. Pulse Rate is abnormal.");
+                return false;
+            }
+            if(systolic<90 || systolic>180 || diastolic<50 || diastolic>100){
+                alert("The Donor cannot donate. Abnormal Blood Pressure.");
+                return false;
+            }
+            if(ironLevel<12.5){
+                alert("The Donor cannot donate. Low Haemoglobin content.");
+                return false;
+            }
+            if(temperature<96.4 || temperature > 100){
+                alert("The Donor cannot donate. Abnormal Body Temperature.");
+                return false;
+            }
+            if(weight<45){
+                alert("The Donor cannot donate. Minimum weight should be 45 Kgs.");
+                return false;
+            }
+            if(weight<50){
+                alert("The Donor cannot donate Component.");
+            }
+            return true;
+        }
+        
+    </script>
+</body>
+</html>

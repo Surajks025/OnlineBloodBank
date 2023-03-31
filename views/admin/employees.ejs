@@ -10,19 +10,7 @@
     <h1>Manage Employees</h1>
 
     <section class="main">
-        <div class="side-bar">
-            <table class="side-table">
-                <thead><tr><th>Admin</th></tr></thead>
-                <tbody>
-                    <tr><td><a href= <%= "/admin/"+adminId+"/donors" %> >Donors</a></td></tr>
-                    <tr><td><a href=<%= "/admin/"+adminId+"/employees" %>>Employee</a></td></tr>
-                    <tr><td><a href=<%= "/admin/"+adminId+"/hospitals" %>>Hospital</a></td></tr>
-                    <tr><td><a href=<%= "/admin/"+adminId+"/bloodRequests" %>>Blood Requests</a></td></tr>
-                    <tr><td><a href=<%= "/admin/"+adminId+"/blood" %>>Blood Inventory</a></td></tr>
-                </tbody>
-                <tfoot><tr><td></td></tr></tfoot>
-            </table>
-        </div>
+        <%- include("sidebar") %>
         <div class="main-item">
             <table class="main-table">
                 <thead>

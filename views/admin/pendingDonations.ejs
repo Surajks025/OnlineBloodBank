@@ -1,0 +1,56 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/donations.css">
+
+    <title>Pending Donations : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Manage Pending Donations</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Aadhar No.</th>
+                        <th>Donor's Name</th>
+                        <th>Date of Donation</th>
+                        <th>Blood Pressure(mm Hg)</th>
+                        <th>Weight(Kgs)</th>
+                        <th>Haemoglobin(g/dL)</th>
+                        <th>Status</th>
+                        <th>Approve</th>
+                        <th>Reject</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i=0;i<donors.length;i++){ %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= donors[i].aadhar %></td>
+                            <td> <a href= <%= "/admin/"+adminId+"/donors/"+donors[i]._id %>><%= donors[i].name %></a> </td>
+                            <td><%= donations[i].donationDate.getDate()+"/"+(donations[i].donationDate.getMonth()+1)+"/"+donations[i].donationDate.getFullYear() %></td>
+                            <td><%= donations[i].systolic+"/"+donations[i].diastolic %></td>
+                            <td><%= donations[i].weight %></td>
+                            <td><%= donations[i].ironLevel %></td>
+                            <td>Test Pending</td>
+                            <td><a href= <%= "/admin/"+adminId+"/hospitals/"+donations[i]._id+"/approve" %> > PASS </a> </td>
+                            <td><a href= <%= "/admin/"+adminId+"/donations/"+donations[i]._id+"/delete" %> > FAIL </a></td>
+                        </tr>
+                    <%} %>
+                </tbody>
+            </table>
+            <form action=<%= "/admin/"+adminId+"/pendingDonations" %> method="post" >
+                <input type="text" name="aadhar" minlength="12" maxlength="12" required placeholder="Donor's Aadhar Number">
+                <button type="submit">+ New Donation</button>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>
