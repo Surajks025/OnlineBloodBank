@@ -1,0 +1,187 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/generateReport.css">
+    <title>Generate Report : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Generate Report</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/reports/add/"+donation._id %>  method="post">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Name : </label></td>
+                        <td> <%= donor.name %> </td> 
+                        <td><label for="">Aadhar Number : </label></td>
+                        <td> <%= donor.aadhar %> </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Gender : </label></td>
+                        <td> <%= donor.gender %> </td>
+                        <td><label for="">Date of Birth : </label></td>
+                        <td><%= donor.dob.getDate()+"/"+(donor.dob.getMonth()+1)+"/"+donor.dob.getFullYear() %></td>
+                    </tr>
+                    <tr>
+                        <td> <label for="">Weight(Kgs) : </label> </td>
+                        <td> <%= donation.weight %> </td>
+                        <td> <label for="">Pulse Rate(bpm) : </label> </td>
+                        <td> <%= donation.pulse %> </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Blood Pressure (mm Hg) : </label></td>
+                        <td><%= donation.systolic +"/"+donation.diastolic %></td>
+                        <td><label for="">Iron Level(g/dL) : </label></td>
+                        <td> <%= donation.ironLevel %> </td>
+                    </tr>
+                    <tr>
+                        <td> <label for="">Body Temperature(&#8457)</label> </td>
+                        <td> <%= donation.temperature %> </td>
+                        <td> <label for="">Date of Donation</label> </td>
+                        <td><%= donation.donationDate.getDate()+"/"+(donation.donationDate.getMonth()+1)+"/"+donation.donationDate.getFullYear() %></td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Hepatitis B virus Surface Antigen (HBsAg) : </label></td>
+                        <td>
+                            <input type="radio" name="hbsag" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hbsag" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Hepatitis B core Antibody (Anti-HBC) : </label></td>
+                        <td>
+                            <input type="radio" name="antihbc" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="antihbc" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">HBV DNA Nucleic Acid Testing (HBV NAT) : </label></td>
+                        <td>
+                            <input type="radio" name="hbvnat" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hbvnat" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Hepatitis C Virus (HCV) : </label></td>
+                        <td>
+                            <input type="radio" name="hcv" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hcv" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">HCV Nucleic Acid Testing (HCV NAT) :</label></td>
+                        <td>
+                            <input type="radio" name="hcvnat" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hcvnat" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Human Immuno Virus 1 (HIV 1) :</label></td>
+                        <td>
+                            <input type="radio" name="hiv1" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hiv1" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Human Immuno Virus 2 (HIV 2) :</label></td>
+                        <td>
+                            <input type="radio" name="hiv2" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="hiv2" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Human T-Lymphotropic Virus 1 (HTLV 1) :</label></td>
+                        <td>
+                            <input type="radio" name="htlv1" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="htlv1" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Human T-Lymphotropic Virus 2 (HTLV 2) :</label></td>
+                        <td>
+                            <input type="radio" name="htlv2" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="htlv2" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Syphilis - Treponema Pallidum (VDRL) :</label></td>
+                        <td>
+                            <input type="radio" name="vdrl" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="vdrl" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Plasmodium Falciparam (PF) : </label></td>
+                        <td>
+                            <input type="radio" name="pf" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="pf" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                        <td><label for="">Plasmodium Vivax (PV) : </label></td>
+                        <td>
+                            <input type="radio" name="pv" value="POSITIVE">
+                            <label for="">+VE</label> &nbsp; &nbsp; &nbsp;
+                            <input type="radio" name="pv" value="NEGATIVE">
+                            <label for="">-VE</label>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Blood Group : </label></td>
+                        <td>
+                            <select name="group" required>
+                                <option>Select</option>
+                                <option value="O">O</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                            </select>
+                        </td>
+                        <td><label for="">Rh Type : </label></td>
+                        <td>
+                            <select name="rh" required>
+                                <option>Select</option>
+                                <option value="+">+ Positive</option>
+                                <option value="-">- Negative</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label for="">Remark : </label></td>
+                        <td><input type="text" name="remark" required></td>
+                    </tr>
+
+                    <tr>
+                        <td><button type="submit" name="STATUS" value="APPROVED">APPROVE</button></td>
+                        <td><button type="submit" name="STATUS" value="REJECTED">REJECT</button></td>
+                        <td><button type="reset">Reset</button></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

@@ -6,6 +6,8 @@ const {Donor,addDonor,deleteDonor,editDonor} = require("../models/donor.js");
 const {Hospital,addHospital,deleteHospital,editHospital} = require("../models/hospital.js");
 const {Employee,addEmployee,deleteEmployee,editEmployee} = require("../models/employee.js");
 const {PendingDonation,addPendingDonation,deletePendingDonation} = require("../models/pendingDonation.js");
+const {Report,createReport } = require("../models/report.js");
+const {VerifiedDonation,addVerifiedDonation} = require("../models/verifiedDonation.js");
 
 const router = new express.Router();
 
@@ -332,8 +334,10 @@ router.route("/admin/:adminId/pendingDonations")
             }
             else{
                 res.render("./admin/error",{
-                    message : `Donor with Aadhar Number ${aadhar} does not exist! Kindly Register the Donor.`,
-                    adminId : adminId
+                    message : `Donor with Aadhar Number ${aadhar} does not exist ! Kindly Register the Donor.`,
+                    adminId : adminId,
+                    link : "/admin/"+adminId+"/donors/register",
+                    btnText : "+ Register Donor"
                 })
             }
         }
@@ -365,7 +369,7 @@ router.route("/admin/:adminId/donations/add/:donorId")
         try{
             const donor = await Donor.findOne({_id:donorId});
             await addPendingDonation(donor.aadhar,req.body);
-            res.redirect("/admin/"+adminId+"/donations");
+            res.redirect("/admin/"+adminId+"/pendingDonations");
         }
         catch(err){
             console.log(err);
@@ -373,16 +377,31 @@ router.route("/admin/:adminId/donations/add/:donorId")
     })
 ;
 
-router.route("/admin/:adminId/donations/:pendingDonationId/delete")
-    .get(async(req,res)=>{
+router.route("/admin/:adminId/reports/add/:pendingDonationId")
+    .get(async (req,res)=>{
+        const pendingDonationId = req.params.pendingDonationId;
+        const adminId = req.params.adminId;
+        try{
+            const pendingDonation = await PendingDonation.findOne({_id : pendingDonationId});
+            const donor = await Donor.findOne({aadhar : pendingDonation.aadhar});
+            res.render("./admin/generateReport",{
+                adminId : adminId,
+                donor : donor,
+                donation : pendingDonation
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+    .post(async(req,res)=>{
         const adminId = req.params.adminId;
         const pendingDonationId = req.params.pendingDonationId;
         try{
-            let donor = await PendingDonation.findOne({_id:pendingDonationId});
-            donor = donor.aadhar;
-            donor = await Donor.findOne({aadhar : donor}); 
-            await deletePendingDonation(pendingDonationId);
-            res.redirect("/admin/"+adminId+"/donors/"+donor._id);
+           const pendingDonation = await PendingDonation.findOne({_id : pendingDonationId});
+           await createReport(req.body,pendingDonation);
+           await deletePendingDonation(pendingDonationId);
+           res.redirect("/admin/"+adminId+"/verifiedDonations");
         }
         catch(err){
             console.log(err);
@@ -390,6 +409,25 @@ router.route("/admin/:adminId/donations/:pendingDonationId/delete")
     })
 ;
 
+router.route("/admin/:adminId/verifiedDonations")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        try{
+            const donations = await VerifiedDonation.find();
+            res.render("./admin/verifiedDonations",{
+                adminId : adminId,
+                donations : donations
+            });
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
 
+router.route("/admin/:adminId/reports/:reportId")
+    .get(async(req,res)=>{
+        
+    })
 
 module.exports = router;

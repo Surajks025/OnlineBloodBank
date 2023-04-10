@@ -27,21 +27,21 @@
                     </tr>
                     <tr>
                         <td> <label for="">Weight(Kgs) : </label> </td>
-                        <td> <input type="number" required name="weight" id="weight"> </td>
+                        <td> <input type="number" required name="weight" id="weight" step="0.01"> </td>
                         <td> <label for="">Pulse Rate(bpm) : </label> </td>
-                        <td> <input type="number" required name="pulse" id="pulse"> </td>
+                        <td> <input type="number" required name="pulse" id="pulse" step="0.01"> </td>
                     </tr>
                     <tr>
                         <td><label for="">Systolic (mm Hg) : </label></td>
-                        <td> <input type="number" required name="systolic" id="systolic"> </td>
+                        <td> <input type="number" required name="systolic" id="systolic" step="0.01"> </td>
                         <td><label for="">Diastolic (mm Hg) : </label></td>
-                        <td> <input type="number" required name="diastolic" id="diastolic"> </td>
+                        <td> <input type="number" required name="diastolic" id="diastolic" step="0.01"> </td>
                     </tr>
                     <tr>
                         <td><label for="">Iron Level(g/dL) : </label></td>
-                        <td> <input type="number" required name="ironLevel" id="ironLevel"> </td>
-                        <td> <label for="">Temperature(&#8457)</label> </td>
-                        <td> <input type="number" required name="temperature" id="temperature"> </td>
+                        <td> <input type="number" required name="ironLevel" id="ironLevel" step="0.01"> </td>
+                        <td> <label for="">Body Temperature(&#8457)</label> </td>
+                        <td> <input type="number" required name="temperature" id="temperature" step="0.01"> </td>
                     </tr>
                     <tr id="consent">
                         <td><input type="checkbox" required></td>
@@ -64,12 +64,12 @@
 
     <script>
         function validate(){
-            const weight = document.getElementById("weight");
-            const pulse = document.getElementById("pulse");
-            const systolic  = document.getElementById("systolic");
-            const diastolic = document.getElementById("diastolic");
-            const ironLevel = document.getElementById("ironLevel");
-            const temperature = document.getElementById("temperature");
+            const weight = document.getElementById("weight").value;
+            const pulse = document.getElementById("pulse").value;
+            const systolic  = document.getElementById("systolic").value;
+            const diastolic = document.getElementById("diastolic").value;
+            const ironLevel = document.getElementById("ironLevel").value;
+            const temperature = document.getElementById("temperature").value;
 
             if(pulse<50 || pulse>100){
                 alert("The Donor cannot donate. Pulse Rate is abnormal.");

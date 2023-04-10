@@ -1,0 +1,40 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/verifiedDonations.css">
+
+    <title>Verified Donations : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Verified Donations</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Aadhar No.</th>
+                        <th>Status</th>
+                        <th>Report</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let i=0;i<donations.length;i++){ %>
+                        <tr>
+                            <td><%= i+1 %></td>
+                            <td><%= donations[i].aadhar %></td>
+                            <td><%= donations[i].STATUS %></td>
+                            <td> <a href= <%= "/admin/"+adminId+"/reports/"+donations[i].reportId %>>View Report >>></a> </td>
+                        </tr>
+                    <%} %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

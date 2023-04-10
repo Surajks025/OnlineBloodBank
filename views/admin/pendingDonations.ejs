@@ -22,9 +22,7 @@
                         <th>Blood Pressure(mm Hg)</th>
                         <th>Weight(Kgs)</th>
                         <th>Haemoglobin(g/dL)</th>
-                        <th>Status</th>
-                        <th>Approve</th>
-                        <th>Reject</th>
+                        <th>Approve/Reject</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,9 +35,7 @@
                             <td><%= donations[i].systolic+"/"+donations[i].diastolic %></td>
                             <td><%= donations[i].weight %></td>
                             <td><%= donations[i].ironLevel %></td>
-                            <td>Test Pending</td>
-                            <td><a href= <%= "/admin/"+adminId+"/hospitals/"+donations[i]._id+"/approve" %> > PASS </a> </td>
-                            <td><a href= <%= "/admin/"+adminId+"/donations/"+donations[i]._id+"/delete" %> > FAIL </a></td>
+                            <td><a href= <%= "/admin/"+adminId+"/reports/add/"+donations[i]._id %> > PASS/FAIL </a> </td>
                         </tr>
                     <%} %>
                 </tbody>
