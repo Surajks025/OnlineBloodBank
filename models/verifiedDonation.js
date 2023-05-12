@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const {Blood,RedBlood,Platelet,Plasma,componentize} = require("./bloodComponents.js");
 
 const verifiedDonationSchema = new mongoose.Schema({
     aadhar : {
@@ -26,6 +27,9 @@ const addVerifiedDonation = async (report,STATUS)=>{
     });
     try{
         await newDonation.save();
+        if(STATUS === "APPROVED"){
+            await componentize(report);
+        }
         console.log("Donation Verified Successfully...");
     }
     catch(err){

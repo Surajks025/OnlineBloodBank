@@ -427,7 +427,24 @@ router.route("/admin/:adminId/verifiedDonations")
 
 router.route("/admin/:adminId/reports/:reportId")
     .get(async(req,res)=>{
-        
+        const adminId = req.params.adminId;
+        const reportId = req.params.reportId;
+        try{
+            const report = await Report.findOne({_id:reportId});
+            const donorId = report.aadhar;
+            const donor = await Donor.findOne({aadhar : donorId});
+            res.render("./admin/report",{
+                donor:donor,
+                report:report,
+                adminId : adminId
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
     })
+;
+
+
 
 module.exports = router;

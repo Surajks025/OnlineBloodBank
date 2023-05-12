@@ -1,0 +1,105 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/generateReport.css">
+    <title>Report : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Report</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <tr>
+                    <td><label for="">Name : </label></td>
+                    <td><a href= <%= "/admin/"+adminId+"/donors/"+donor._id %> ><%= donor.name %></a></td> 
+                    <td><label for="">Aadhar Number : </label></td>
+                    <td> <%= donor.aadhar %> </td>
+                </tr>
+                <tr>
+                    <td><label for="">Gender : </label></td>
+                    <td> <%= donor.gender %> </td>
+                    <td><label for="">Date of Birth : </label></td>
+                    <td><%= donor.dob.getDate()+"/"+(donor.dob.getMonth()+1)+"/"+donor.dob.getFullYear() %></td>
+                </tr>
+                <tr>
+                    <td> <label for="">Weight(Kgs) : </label> </td>
+                    <td> <%= report.weight %> </td>
+                    <td> <label for="">Pulse Rate(bpm) : </label> </td>
+                    <td> <%= report.pulse %> </td>
+                </tr>
+                <tr>
+                    <td><label for="">Blood Pressure (mm Hg) : </label></td>
+                    <td><%= report.systolic +"/"+report.diastolic %></td>
+                    <td><label for="">Iron Level(g/dL) : </label></td>
+                    <td> <%= report.ironLevel %> </td>
+                </tr>
+                <tr>
+                    <td> <label for="">Body Temperature(&#8457)</label> </td>
+                    <td> <%= report.temperature %> </td>
+                    <td> <label for="">Date of Donation</label> </td>
+                    <td><%= report.donationDate.getDate()+"/"+(report.donationDate.getMonth()+1)+"/"+report.donationDate.getFullYear() %></td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Hepatitis B virus Surface Antigen (HBsAg) : </label></td>
+                    <td> <%= report.hbsag %> </td>
+                    <td><label for="">Hepatitis B core Antibody (Anti-HBC) : </label></td>
+                    <td> <%= report.antihbc %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">HBV DNA Nucleic Acid Testing (HBV NAT) : </label></td>
+                    <td> <%= report.hbvnat %> </td>
+                    <td><label for="">Hepatitis C Virus (HCV) : </label></td>
+                    <td> <%= report.hcv %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">HCV Nucleic Acid Testing (HCV NAT) :</label></td>
+                    <td> <%= report.hcvnat %> </td>
+                    <td><label for="">Human Immuno Virus 1 (HIV 1) :</label></td>
+                    <td> <%= report.hiv1 %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Human Immuno Virus 2 (HIV 2) :</label></td>
+                    <td> <%= report.hiv2 %> </td>
+                    <td><label for="">Human T-Lymphotropic Virus 1 (HTLV 1) :</label></td>
+                    <td> <%= report.htlv1 %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Human T-Lymphotropic Virus 2 (HTLV 2) :</label></td>
+                    <td> <%= report.htlv2 %> </td>
+                    <td><label for="">Syphilis - Treponema Pallidum (VDRL) :</label></td>
+                    <td> <%= report.vdrl %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Plasmodium Falciparam (PF) : </label></td>
+                    <td> <%= report.pf %> </td>
+                    <td><label for="">Plasmodium Vivax (PV) : </label></td>
+                    <td> <%= report.pv %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Blood Group : </label></td>
+                    <td> <%= report.group %> </td>
+                    <td><label for="">Rh Type : </label></td>
+                    <td> <%= report.rh %> </td>
+                </tr>
+
+                <tr>
+                    <td><label for="">Remark : </label></td>
+                    <td> <%= report.remark %> </td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+</body>
+</html>

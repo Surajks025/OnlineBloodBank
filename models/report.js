@@ -124,9 +124,7 @@ const createReport = async (report,pendingDonation)=>{
         rh : report.rh,
         remark : report.remark
     });
-
     const STATUS = report.STATUS;
-
     try{
         const generated = await newReport.save();
         await addVerifiedDonation(generated,STATUS);
