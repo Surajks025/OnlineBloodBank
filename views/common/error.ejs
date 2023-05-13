@@ -1,16 +1,15 @@
 <%-include("../common/header")%>
 
-    <link rel="stylesheet" href="/admin/error.css">
+    <link rel="stylesheet" href="/common/error.css">
     <title>Error : Blood Bank</title>
 </head>
 <body>
-    <%-include("navbar")%>
+    <%-include("../landing/navbar")%>
     <h1>OOPs !!!!</h1>
     <section class="main">
         <img src="/images/error.jpg" alt="Error Image" class="errorImg">
         <div class="main-item">
             <h2><%= message %></h2>
-            <a href= <%= link %> ><button> <%= btnText %> </button></a>
         </div>
     </section>
 

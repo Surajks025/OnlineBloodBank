@@ -12,10 +12,12 @@ const authenticateUser=require("./auth/login.js");
 //Importing Routes
 const adminRoutes = require("./routes/adminRoutes.js");
 const donorRoutes = require("./routes/donorRoutes.js");
-const bloodRoutes = require("./routes/bloodRoutes.js");
 
 // Importing Donor model
 const Donor = require("./models/donor.js");
+
+const {Hospital} = require("./models/hospital.js");
+const {getPlasmaCount,getPlateletCount,getBloodCount,getRedBloodCount}=require("./models/bloodComponents.js");
 
 //creating app
 const app = express();
@@ -29,8 +31,6 @@ app.set("view engine","ejs");
 //use imported routes
 app.use(adminRoutes);
 app.use(donorRoutes);
-app.use(bloodRoutes);
-
 
 // Connecting to the DB
 connectDB()
@@ -40,7 +40,18 @@ connectDB()
 ;
 
 app.route("/")
-    .get((req,res)=>res.render("./landing/home"))
+    .get(async(req,res)=>{
+        let countPlasmas = await getPlasmaCount();
+        let countRBC = await getRedBloodCount();
+        let countPlatelets = await getPlateletCount();
+        let countBloods = await getBloodCount();
+        res.render("./landing/home",{
+            countPlasmas:countPlasmas,
+            countRBCs : countRBC,
+            countPlatelets : countPlatelets,
+            countBloods : countBloods
+        });
+    })
 ;
 
 app.route("/about")
@@ -48,7 +59,12 @@ app.route("/about")
 ;
 
 app.route("/hospitals")
-    .get((req,res)=>res.render("./landing/hospitals"))
+    .get(async (req,res)=>{
+        const hospitals = await Hospital.find();
+        res.render("./landing/hospitals",{
+            hospitals : hospitals
+        })
+    })
 ;
 
 app.route("/bloodCamps")
@@ -64,10 +80,7 @@ app.route("/login")
         const approval = await authenticateUser(aadhar,password,trigger);
         if(approval.user){
             if(trigger === "admin"){
-                res.render("./admin/home",{
-                    adminName : approval.user.name,
-                    adminId : approval.user._id,
-                });
+                res.redirect("/admin/"+approval.user._id);
             }
             else if(trigger === "donor"){
                 res.render("donor",{
@@ -83,7 +96,9 @@ app.route("/login")
             }
         }
         else{
-            console.log(approval.msg);
+            res.render("./common/error.ejs",{
+                message : approval.msg
+            })
         }
     })
 ;

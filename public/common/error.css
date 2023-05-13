@@ -1,0 +1,47 @@
+h1{
+    text-align: center;
+    color: red;
+}
+
+.main{
+    display: flex;
+    justify-content: space-around;
+}
+
+table,tr,td{
+    border-collapse:collapse;
+}
+
+.errorImg{
+    height: 450px;
+}
+
+/* Main Table */
+.main-item{
+    width: 79%;
+    text-align: center;
+}
+
+.main-table{
+    width: 100%;
+    border: 2px solid black;
+}
+
+.main-table tr{
+    border: 1px solid black;
+}
+
+.main-table tbody tr:hover{
+    background-color: rgb(226, 225, 225);
+    font-weight: bold;
+}
+
+.main-table td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+.main-table th{
+    border: 1px solid black;
+    font-size: 19px;
+}

@@ -1,10 +1,40 @@
-<%- include("../common/header") %>
-
-<title>Hospitals : Blood Bank</title>
+<%-include("../common/header")%>
+    <link rel="stylesheet" href="/landing/hospitals.css">
+    <title>Hospitals : Blood Bank</title>
 </head>
 <body>
-    <%- include("navbar") %>
+    <%-include("../landing/navbar")%>
     <h1>List of Hospitals</h1>
-    <%- include("../common/footer") %>
+    <section class="main">
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Registration No.</th>
+                        <th>Name</th>
+                        <th>Locality</th>
+                        <th>District</th>
+                        <th>State</th>
+                        <th>PIN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% hospitals.forEach((hospital,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= hospital.registrationNumber %></td>
+                            <td><%= hospital.hospitalName %></td>
+                            <td><%= hospital.locality %></td>
+                            <td><%= hospital.district %></td>
+                            <td><%= hospital.state %></td>
+                            <td><%= hospital.pincode %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <%-include("../common/footer")%>
 </body>
 </html>

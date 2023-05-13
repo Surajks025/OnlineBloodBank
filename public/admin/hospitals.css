@@ -58,12 +58,16 @@ table,tr,td{
     border: 2px solid black;
 }
 
+.main-table thead{
+    background-color: rgb(203, 203, 203);
+}
+
 .main-table tr{
     border: 1px solid black;
 }
 
 .main-table tbody tr:hover{
-    background-color: rgb(226, 225, 225);
+    background-color: rgb(252, 213, 213);
     font-weight: bold;
 }
 
@@ -77,26 +81,13 @@ table,tr,td{
     font-size: 19px;
 }
 
-/* New Donation Form */
-.main-item form{
-    margin-top: 40px;
-}
-
-.main-item form input{
-    border: none;
-    border-bottom: 2px solid black;
-    width: 15%;
-    margin-right: 20px;
-    outline: none;
-    font-size: 16px;
-}
-
+/* Add Object Button */
 .main-item button{
     margin-top: 20px;
-    width: 10%;
-    height: 30px;
+    width: 15%;
+    height: 50px;
     background-color: rgba(218, 34, 34,1);
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     color: white;
     font-weight: bold;
@@ -104,6 +95,7 @@ table,tr,td{
 
 .main-item button:hover{
     background-color: black;
+    font-size: 15px;
     cursor: pointer;
 }
 

@@ -21,6 +21,50 @@
                 </div>
             </div>
         </div>
+
+        <h1>Blood Inventory Dashboard</h1>
+        
+        <table class="dash-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>O-</th>
+                    <th>O+</th>
+                    <th>B-</th>
+                    <th>B+</th>
+                    <th>A-</th>
+                    <th>A+</th>
+                    <th>AB-</th>
+                    <th>AB+</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Plasma</th>
+                    <% countPlasmas.forEach((countPlasma)=>{ %>
+                        <td> <%= countPlasma %></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <th>Red Blood Cells</th>
+                    <% countRBCs.forEach((countRBC)=>{ %>
+                        <td><%= countRBC %></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <th>Platelets</th>
+                    <% countPlatelets.forEach((countPlatelet)=>{ %>
+                        <td><%= countPlatelet %></td>
+                    <% }) %>
+                </tr>
+                <tr>
+                    <th>Whole Blood</th>
+                    <% countBloods.forEach((countBlood)=>{ %>
+                        <td><%= countBlood %></td>
+                    <% }) %>
+                </tr>
+            </tbody>
+        </table>
     </section>
 
     <%-include("../common/footer")%>

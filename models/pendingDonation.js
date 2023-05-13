@@ -51,7 +51,6 @@ const addPendingDonation = async (aadhar,details)=>{
     });
     try{
         await newPendingDonation.save();
-        console.log("New Pending Donation added successfully....");
     }
     catch(err){
         console.log(err);
@@ -61,7 +60,6 @@ const addPendingDonation = async (aadhar,details)=>{
 const deletePendingDonation = async (pendingDonationId)=>{
     try{
         await PendingDonation.deleteOne({_id : pendingDonationId});
-        console.log("Pending Donation Deleted successfully...");
     }
     catch(err){
         console.log(err);

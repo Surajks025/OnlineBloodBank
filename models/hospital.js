@@ -1,8 +1,5 @@
 const mongoose = require("mongoose");
 
-//Importing updateHospitalTable
-const {updateHospitalTable,deleteHospitalTable} = require("./addedHospitalTable.js");
-
 const hospitalSchema = new mongoose.Schema({
     hospitalName : {
         type : String,
@@ -61,7 +58,6 @@ const addHospital = async (hospital,adminId)=>{
     });
     try{
         const hospital = await newHospital.save();
-        await updateHospitalTable(hospital._id,adminId);
         console.log("Hospital Saved Successfully...");
     }
     catch(err){
@@ -71,7 +67,6 @@ const addHospital = async (hospital,adminId)=>{
 
 const deleteHospital = async(hospitalId)=>{
     try{
-        await deleteHospitalTable(hospitalId);
         await Hospital.deleteOne({_id : hospitalId});
     }
     catch(err){

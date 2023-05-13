@@ -1,0 +1,171 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/inventory.css">
+
+    <title>Inventory : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Blood Inventory</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <h2>Dashboard</h2>
+            <table class="dash-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>O-</th>
+                        <th>O+</th>
+                        <th>B-</th>
+                        <th>B+</th>
+                        <th>A-</th>
+                        <th>A+</th>
+                        <th>AB-</th>
+                        <th>AB+</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Plasma</th>
+                        <% countPlasmas.forEach((countPlasma)=>{ %>
+                            <td> <%= countPlasma %></td>
+                        <% }) %>
+                    </tr>
+                    <tr>
+                        <th>Red Blood Cells</th>
+                        <% countRBCs.forEach((countRBC)=>{ %>
+                            <td><%= countRBC %></td>
+                        <% }) %>
+                    </tr>
+                    <tr>
+                        <th>Platelets</th>
+                        <% countPlatelets.forEach((countPlatelet)=>{ %>
+                            <td><%= countPlatelet %></td>
+                        <% }) %>
+                    </tr>
+                    <tr>
+                        <th>Whole Blood</th>
+                        <% countBloods.forEach((countBlood)=>{ %>
+                            <td><%= countBlood %></td>
+                        <% }) %>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <h2>Plasma</h2>
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor's Aadhar No.</th>
+                        <th>Component Name</th>
+                        <th>Date of Donation</th>
+                        <th>Expiry Date</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% plasmas.forEach((plasma,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= plasma.aadhar %></td>
+                            <td>Plasma</td>
+                            <td><%= plasma.donationDate.getDate()+"/"+(plasma.donationDate.getMonth()+1)+"/"+plasma.donationDate.getFullYear() %></td>
+                            <td><%= plasma.expiryDate.getDate()+"/"+(plasma.expiryDate.getMonth()+1)+"/"+plasma.expiryDate.getFullYear() %></td>
+                            <td><%= plasma.group %></td>
+                            <td><%= plasma.rh %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table> <br>
+            <h2>Red Blood Cells</h2>
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor's Aadhar No.</th>
+                        <th>Component Name</th>
+                        <th>Date of Donation</th>
+                        <th>Expiry Date</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% redBloods.forEach((redBlood,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= redBlood.aadhar %></td>
+                            <td>Red Blood Cells</td>
+                            <td><%= redBlood.donationDate.getDate()+"/"+(redBlood.donationDate.getMonth()+1)+"/"+redBlood.donationDate.getFullYear() %></td>
+                            <td><%= redBlood.expiryDate.getDate()+"/"+(redBlood.expiryDate.getMonth()+1)+"/"+redBlood.expiryDate.getFullYear() %></td>
+                            <td><%= redBlood.group %></td>
+                            <td><%= redBlood.rh %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table> <br>
+            <h2>Platelet</h2>
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor's Aadhar No.</th>
+                        <th>Component Name</th>
+                        <th>Date of Donation</th>
+                        <th>Expiry Date</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% platelets.forEach((platelet,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= platelet.aadhar %></td>
+                            <td>Platelet</td>
+                            <td><%= platelet.donationDate.getDate()+"/"+(platelet.donationDate.getMonth()+1)+"/"+platelet.donationDate.getFullYear() %></td>
+                            <td><%= platelet.expiryDate.getDate()+"/"+(platelet.expiryDate.getMonth()+1)+"/"+platelet.expiryDate.getFullYear() %></td>
+                            <td><%= platelet.group %></td>
+                            <td><%= platelet.rh %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table> <br>
+            <h2>Whole Blood</h2>
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Donor's Aadhar No.</th>
+                        <th>Component Name</th>
+                        <th>Date of Donation</th>
+                        <th>Expiry Date</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% bloods.forEach((blood,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= blood.aadhar %></td>
+                            <td>Whole Blood</td>
+                            <td><%= blood.donationDate.getDate()+"/"+(blood.donationDate.getMonth()+1)+"/"+blood.donationDate.getFullYear() %></td>
+                            <td><%= blood.expiryDate.getDate()+"/"+(blood.expiryDate.getMonth()+1)+"/"+blood.expiryDate.getFullYear() %></td>
+                            <td><%= blood.group %></td>
+                            <td><%= blood.rh %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    <%-include("../common/footer")%>
+</body>
+</html>

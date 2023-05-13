@@ -47,6 +47,28 @@ table,tr,td{
     background-color : black;
 }
 
+/* Dashboard */
+.dash-table{
+    margin-left: 100px ;
+    margin-bottom: 30px;
+    width: 80%;
+    border: 2px solid black;
+}
+
+.dash-table th{
+    background-color: rgb(203,203,203);
+}
+
+.dash-table th, .dash-table td{
+    text-align: center;
+    border: 1px solid black;
+}
+
+.dash-table tr:hover, .dash-table td:hover{
+    background-color: rgb(252,213,213);
+    font-weight: bold;
+}
+
 /* Main Table */
 .main-item{
     width: 79%;
@@ -58,12 +80,16 @@ table,tr,td{
     border: 2px solid black;
 }
 
+.main-table thead{
+    background-color: rgb(203, 203, 203);
+}
+
 .main-table tr{
     border: 1px solid black;
 }
 
 .main-table tbody tr:hover{
-    background-color: rgb(226, 225, 225);
+    background-color: rgb(252, 213, 213);
     font-weight: bold;
 }
 

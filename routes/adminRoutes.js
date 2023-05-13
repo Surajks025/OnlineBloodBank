@@ -7,7 +7,8 @@ const {Hospital,addHospital,deleteHospital,editHospital} = require("../models/ho
 const {Employee,addEmployee,deleteEmployee,editEmployee} = require("../models/employee.js");
 const {PendingDonation,addPendingDonation,deletePendingDonation} = require("../models/pendingDonation.js");
 const {Report,createReport } = require("../models/report.js");
-const {VerifiedDonation,addVerifiedDonation} = require("../models/verifiedDonation.js");
+const {VerifiedDonation} = require("../models/verifiedDonation.js");
+const {getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount} = require("../models/bloodComponents.js");
 
 const router = new express.Router();
 
@@ -16,9 +17,17 @@ router.route("/admin/:adminId")
     .get(async(req,res)=>{
         const adminId = req.params.adminId;
         const admin = await Admin.findOne({_id:adminId});
+        let countPlasmas = await getPlasmaCount();
+        let countRBC = await getRedBloodCount();
+        let countPlatelets = await getPlateletCount();
+        let countBloods = await getBloodCount();
         res.render("./admin/home",{
             adminName : admin.name,
-            adminId : admin._id
+            adminId : admin._id,
+            countPlasmas:countPlasmas,
+            countRBCs : countRBC,
+            countPlatelets : countPlatelets,
+            countBloods : countBloods
         })
     })
 ;
@@ -330,7 +339,18 @@ router.route("/admin/:adminId/pendingDonations")
         try{
             const donor = await Donor.findOne({aadhar : aadhar});
             if(donor){
-                res.redirect("/admin/"+adminId+"/donations/add/"+donor._id);
+                const report = await Report.findOne({aadhar : aadhar});
+                if(report){
+                    res.render("./admin/error",{
+                        adminId : adminId,
+                        message : `Donor with Aadhar Number ${aadhar} has donated on ${report.donationDate.getDate()+"/"+(report.donationDate.getMonth()+1)+"/"+report.donationDate.getFullYear()} and cannot donate within 3 months of previous Donation.`,
+                        link : "/admin/:adminId/pendingDonations",
+                        btnText : "Pending Donation"
+                    })
+                }
+                else{
+                    res.redirect("/admin/"+adminId+"/donations/add/"+donor._id);
+                }
             }
             else{
                 res.render("./admin/error",{
@@ -445,6 +465,34 @@ router.route("/admin/:adminId/reports/:reportId")
     })
 ;
 
-
+router.route("/admin/:adminId/inventory")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        try{
+            let plasmas = await getPlasma();
+            let redBloods = await getRedBlood();
+            let platelets = await getPlatelets();
+            let bloods = await getBlood();
+            let countPlasmas = await getPlasmaCount();
+            let countRBC = await getRedBloodCount();
+            let countPlatelets = await getPlateletCount();
+            let countBloods = await getBloodCount();
+            res.render("./admin/bloodInventory",{
+                countPlasmas:countPlasmas,
+                countRBCs : countRBC,
+                countPlatelets : countPlatelets,
+                countBloods : countBloods,
+                plasmas:plasmas,
+                redBloods : redBloods,
+                platelets : platelets,
+                bloods : bloods,
+                adminId : adminId
+            })
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
 
 module.exports = router;
