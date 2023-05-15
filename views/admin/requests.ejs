@@ -1,0 +1,48 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/requests.css">
+
+    <title>Requests : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Blood Requests</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Recipient's Aadhar No.</th>
+                        <th>Recipient's Name</th>
+                        <th>Date of Request</th>
+                        <th>Component Name</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                        <th>Hospital</th>
+                        <th>Allocate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% requests.forEach((request,index)=>{ %>
+                        <td><%= index+1 %></td>
+                        <td><%= request.aadhar %></td>
+                        <td><%= request.name %></td>
+                        <td><%= request.requestDate.getDate()+"/"+(request.requestDate.getMonth()+1)+"/"+request.requestDate.getFullYear() %></td>
+                        <td><%= request.component %></td>
+                        <td><%= request.group %></td>
+                        <td><%= request.rh %></td>
+                        <td><a href=<%= "/admin/"+adminId+"/hospitals/"+request.hospitalId %>>View Hospital</a></td>
+                        <td> <a href=<%= "/admin/"+adminId+"/requests/"+request._id %>>Allocate>>></a></td>
+                    <% }) %>
+                </tbody>
+            </table> <br>
+            <a href=<%= "/admin/"+adminId+"/requests/create" %>> <button>+ New Request</button> </a>
+        </div>
+    </section>
+    <%-include("../common/footer")%>
+</body>
+</html>

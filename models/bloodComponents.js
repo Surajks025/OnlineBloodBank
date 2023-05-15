@@ -377,4 +377,4 @@ const getRedBloodCount = async ()=>{
     return redBloodCount;
 }
 
-module.exports = {componentize,getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount};
+module.exports = {Blood,Plasma,Platelet,RedBlood,componentize,getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount};

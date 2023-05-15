@@ -59,7 +59,6 @@ const addDonor = async (donor) =>{
     });
     try{
         await newdonor.save();
-        console.log("Donor Saved Successfullly....");
     }
     catch(err){
         console.log(err);

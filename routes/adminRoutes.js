@@ -9,6 +9,7 @@ const {PendingDonation,addPendingDonation,deletePendingDonation} = require("../m
 const {Report,createReport } = require("../models/report.js");
 const {VerifiedDonation} = require("../models/verifiedDonation.js");
 const {getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount} = require("../models/bloodComponents.js");
+const {Request,allocate} = require("../models/request.js");
 
 const router = new express.Router();
 
@@ -156,7 +157,7 @@ router.route("/admin/:adminId/donors/register")
     .post( async (req,res)=>{
         const adminId = req.params.adminId;
         try{
-            addDonor(req.body);
+            await addDonor(req.body);
             res.redirect("/admin/"+adminId+"/donors");
         }
         catch(err){
@@ -339,12 +340,14 @@ router.route("/admin/:adminId/pendingDonations")
         try{
             const donor = await Donor.findOne({aadhar : aadhar});
             if(donor){
-                const report = await Report.findOne({aadhar : aadhar});
-                if(report){
+                const report = await Report.find({aadhar : aadhar});
+                let lastDonationDate = new Date().getTime(); 
+                lastDonationDate -= report[report.length-1].donationDate.getTime();
+                if(lastDonationDate<=7889400000){
                     res.render("./admin/error",{
                         adminId : adminId,
-                        message : `Donor with Aadhar Number ${aadhar} has donated on ${report.donationDate.getDate()+"/"+(report.donationDate.getMonth()+1)+"/"+report.donationDate.getFullYear()} and cannot donate within 3 months of previous Donation.`,
-                        link : "/admin/:adminId/pendingDonations",
+                        message : `Donor with Aadhar Number ${aadhar} has donated blood on ${report[report.length-1].donationDate.getDate()+"/"+(report[report.length-1].donationDate.getMonth()+1)+"/"+report[report.length-1].donationDate.getFullYear()} and cannot donate within 3 months of previous Donation.`,
+                        link : "/admin/"+adminId+"/pendingDonations",
                         btnText : "Pending Donation"
                     })
                 }
@@ -492,6 +495,73 @@ router.route("/admin/:adminId/inventory")
         catch(err){
             console.log(err);
         }
+    })
+;
+
+router.route("/admin/:adminId/requests")
+    .get(async (req,res)=>{
+        const adminId = req.params.adminId;
+        const requests = await Request.find();
+        res.render("./admin/requests",{
+            adminId : adminId,
+            requests : requests
+        })
+    })
+;
+
+router.route("/admin/:adminId/requests/:requestId")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const requestId = req.params.requestId;
+        const request = await Request.findOne({_id:requestId});
+        if(request){
+            const allocated = await allocate(request);
+            if(allocated === true){
+                await Request.deleteOne({_id:request._id});
+                res.redirect("/admin/"+adminId+"/requests");
+            }
+            else{
+                res.render("./admin/error",{
+                    adminId : adminId,
+                    message : "Blood is not available for the specified request.",
+                    link : "/admin/"+adminId+"/requests",
+                    btnText : "Blood Requests"
+                })
+            }
+        }
+        else{
+            res.render("./admin/error",{
+                adminId : adminId,
+                message : "Invalid Request",
+                link : "/admin/"+adminId+"/requests",
+                btnText : "Blood Requests"
+            })
+        }
+    })
+;
+
+router.route("/admin/:adminId/requests/create")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const hospitals = await Hospital.find();
+        res.render("./admin/createRequest",{
+            adminId : adminId,
+            hospitals : hospitals
+        })
+    })
+    .post(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const newRequest = new Request({
+            aadhar : req.body.aadhar,
+            name : req.body.name,
+            requestDate : new Date(),
+            component : req.body.component,
+            group : req.body.group,
+            rh : req.body.rh,
+            hospitalId : req.body.hospital
+        });
+        await newRequest.save();
+        res.redirect("/admin/"+adminId+"/requests");
     })
 ;
 

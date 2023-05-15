@@ -1,0 +1,113 @@
+h1{
+    text-align: center;
+}
+
+.main{
+    display: flex;
+    justify-content: space-around;
+}
+
+table,tr,td{
+    border-collapse:collapse;
+}
+
+/* Dashboard */
+.dash-table{
+    margin-left: 300px;
+    margin-bottom: 30px;
+    width: 60%;
+    border: 2px solid black;
+}
+
+.dash-table th{
+    background-color: rgb(203,203,203);
+}
+
+.dash-table th, .dash-table td{
+    text-align: center;
+    border: 1px solid black;
+}
+
+.dash-table tr:hover, .dash-table td:hover{
+    background-color: rgb(252,213,213);
+    font-weight: bold;
+}
+
+/* SideBar */
+
+.side-bar{
+    width: 20%;
+}
+
+.side-table{
+    background-color: rgba(218, 34, 34,1);
+    color: white;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.side-table td{
+    padding: 10px 10px;
+}
+
+.side-table th{
+    font-size: 20px;
+}
+
+.side-table a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.side-table a:hover{
+    color: red;
+    font-weight: bold;
+}
+
+.side-table tbody tr:hover{
+    background-color : black;
+}
+
+/* Main Table */
+.main-item{
+    width: 79%;
+    text-align: center;
+}
+
+.main-table{
+    width: 100%;
+    border: 2px solid black;
+}
+
+.main-table thead{
+    background-color: rgb(203, 203, 203);
+}
+
+.main-table tbody tr:hover{
+    background-color: rgb(252, 213, 213);
+    font-weight: bold;
+}
+
+.main-table td,.main-table th{
+    border: 1px solid black;
+    text-align: center;
+}
+
+/* Button */
+
+.main-item button{
+    height: 40px;
+    border-radius: 5px;
+    background-color: rgb(235, 51, 51);
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 130px;
+}
+
+.main-item button:hover{
+    background-color: black;
+    cursor: pointer;
+}

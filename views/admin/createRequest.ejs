@@ -1,0 +1,72 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/createRequest.css">
+    <title>Create Request : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Create Blood Request</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/requests/create" %>  method="post">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Recipient's Aadhar : </label></td>
+                        <td><input type="text" name="aadhar" id="" required maxlength="12" minlength="12"></td> 
+                        <td><label for="">Recipient's Name : </label></td>
+                        <td><input type="text" name="name" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Component Required : </label></td>
+                        <td>
+                            <select name="component" id="" required>
+                                <option value="PLASMA">Plasma</option>
+                                <option value="PLATELET">Platelets</option>
+                                <option value="RBC">Red Blood Cells</option>
+                            </select>
+                        </td>
+                        <td><label for="">Hospital Name : </label></td>
+                        <td>
+                            <select name="hospital" id="" required>
+                                <% hospitals.forEach((hospital)=>{%>
+                                    <option value=<%= hospital._id %>><%= hospital.hospitalName %></option>
+                                <% }) %>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Blood Group : </label></td>
+                        <td>
+                            <select name="group" id="" required>
+                                <option value="O">O</option>
+                                <option value="B">B</option>
+                                <option value="A">A</option>
+                                <option value="AB">AB</option>
+                            </select>
+                        </td>
+                        <td><label for="">Rh Type : </label></td>
+                        <td>
+                            <select name="rh" id="" required>
+                                <option value="+">+ Positive</option>
+                                <option value="-">- Negative</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">Create</button></td>
+                        <td><button type="reset">Reset</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+
+</body>
+</html>

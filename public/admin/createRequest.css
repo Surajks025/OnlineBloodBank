@@ -1,0 +1,98 @@
+h1{
+    text-align: center;
+}
+
+.main{
+    display: flex;
+    justify-content: space-around;
+}
+
+table,tr,td{
+    border-collapse:collapse;
+}
+
+/* SideBar */
+
+.side-bar{
+    width: 20%;
+}
+
+.side-table{
+    background-color: rgba(218, 34, 34,1);
+    color: white;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.side-table td{
+    padding: 10px 10px;
+}
+
+.side-table th{
+    font-size: 20px;
+}
+
+.side-table a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.side-table a:hover{
+    color: red;
+    font-weight: bold;
+}
+
+.side-table tbody tr:hover{
+    background-color : black;
+}
+
+/* Main Table */
+.main-item{
+    width: 79%;
+    text-align: center;
+}
+
+.main-table{
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 10px 55px;
+}
+
+.main-table input{
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+}
+
+.main-table td{
+    text-align: right;
+}
+
+.main-table select{
+    width: 100%;
+}
+
+.main-table th{
+    border: 1px solid black;
+    font-size: 19px;
+}
+
+/* Add Object Button */
+.main-item form button{
+    margin-top: 20px;
+    width: 50%;
+    height: 40px;
+    background-color: rgba(218, 34, 34,1);
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-weight: bold;
+}
+
+.main-item form button:hover{
+    background-color: black;
+    font-size: 15px;
+    cursor: pointer;
+}
