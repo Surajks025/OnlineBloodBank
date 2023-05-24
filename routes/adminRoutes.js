@@ -381,15 +381,17 @@ router.route("/admin/:adminId/pendingDonations")
             const donor = await Donor.findOne({aadhar : aadhar});
             if(donor){
                 const report = await Report.find({aadhar : aadhar});
-                let lastDonationDate = new Date().getTime(); 
-                lastDonationDate -= report[report.length-1].donationDate.getTime();
-                if(lastDonationDate<=7889400000){
-                    res.render("./admin/error",{
-                        adminId : adminId,
-                        message : `Donor with Aadhar Number ${aadhar} has donated blood on ${report[report.length-1].donationDate.getDate()+"/"+(report[report.length-1].donationDate.getMonth()+1)+"/"+report[report.length-1].donationDate.getFullYear()} and cannot donate within 3 months of previous Donation.`,
-                        link : "/admin/"+adminId+"/pendingDonations",
-                        btnText : "Pending Donation"
-                    })
+                if(report.length>0){
+                    let lastDonationDate = new Date().getTime(); 
+                    lastDonationDate -= report[report.length-1].donationDate.getTime();
+                    if(lastDonationDate<=7889400000){
+                        res.render("./admin/error",{
+                            adminId : adminId,
+                            message : `Donor with Aadhar Number ${aadhar} has donated blood on ${report[report.length-1].donationDate.getDate()+"/"+(report[report.length-1].donationDate.getMonth()+1)+"/"+report[report.length-1].donationDate.getFullYear()} and cannot donate within 3 months of previous Donation.`,
+                            link : "/admin/"+adminId+"/pendingDonations",
+                            btnText : "Pending Donation"
+                        })
+                    }
                 }
                 else{
                     res.redirect("/admin/"+adminId+"/donations/add/"+donor._id);

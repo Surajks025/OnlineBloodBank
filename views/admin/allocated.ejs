@@ -18,6 +18,7 @@
                         <th>Recipient's Aadhar</th>
                         <th>Recipient's Name</th>
                         <th>Donor's Aadhar</th>
+                        <th>Date of Allocation</th>
                         <th>Component</th>
                         <th>Blood Group</th>
                         <th>Rh Factor</th>
@@ -30,6 +31,7 @@
                             <td><%= allocation.recipientAadhar %></td>
                             <td><%= allocation.recipientName %></td>
                             <td><%= allocation.donorAadhar %></td>
+                            <td><%= allocation.allocationDate.getDate()+"/"+(allocation.allocationDate.getMonth()+1)+"/"+allocation.allocationDate.getFullYear() %></td>
                             <td><%= allocation.component %></td>
                             <td><%= allocation.group %></td>
                             <td><%= allocation.rh %></td>
