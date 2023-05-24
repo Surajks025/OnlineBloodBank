@@ -9,7 +9,8 @@ const {PendingDonation,addPendingDonation,deletePendingDonation} = require("../m
 const {Report,createReport } = require("../models/report.js");
 const {VerifiedDonation} = require("../models/verifiedDonation.js");
 const {getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount} = require("../models/bloodComponents.js");
-const {Request,allocate} = require("../models/request.js");
+const {Request,allocate, manualAllocate,Allocation} = require("../models/request.js");
+const {BloodCamp,getBloodCamps,newCamp}=require("../models/bloodCamp.js");
 
 const router = new express.Router();
 
@@ -22,13 +23,19 @@ router.route("/admin/:adminId")
         let countRBC = await getRedBloodCount();
         let countPlatelets = await getPlateletCount();
         let countBloods = await getBloodCount();
+        let verifiedDonations = await VerifiedDonation.find();
+        let allocated = await Allocation.find();
+        let requests = await Request.find();
         res.render("./admin/home",{
             adminName : admin.name,
             adminId : admin._id,
             countPlasmas:countPlasmas,
             countRBCs : countRBC,
             countPlatelets : countPlatelets,
-            countBloods : countBloods
+            countBloods : countBloods,
+            verifiedDonations : verifiedDonations,
+            allocated : allocated,
+            requests : requests
         })
     })
 ;
@@ -171,14 +178,47 @@ router.route("/admin/:adminId/donors/:donorId")
         const adminId = req.params.adminId;
         const donorId = req.params.donorId;
         try{
-            const donor = await Donor.findOne({_id : donorId});
-            res.render("./admin/donor",{
-                donor : donor,
-                adminId : adminId
+            let donor=null;
+            if(donorId.length === 12){
+                donor = await Donor.findOne({aadhar : donorId});
+            }
+            else{
+                donor = await Donor.findOne({_id : donorId});
+            }
+            if(donor){
+                res.render("./admin/donor",{
+                    donor : donor,
+                    adminId : adminId
+                })
+            }
+            else{
+                res.render("./admin/error",{
+                    adminId : adminId,
+                    message : "The donor with the specified details does not exist.",
+                    link : "/admin/"+adminId+"/donors",
+                    btnText : "Donors"
+                })
+            }
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/donors/:aadhar/history")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const aadhar = req.params.aadhar;
+        try{
+            const donations = await VerifiedDonation.find({aadhar : aadhar});
+            res.render("./admin/donationHistory",{
+                adminId : adminId,
+                donations : donations
             })
         }
         catch(err){
-            console.log("Could not find the specified Donor...")
+            console.log(err);
         }
     })
 ;
@@ -509,37 +549,6 @@ router.route("/admin/:adminId/requests")
     })
 ;
 
-router.route("/admin/:adminId/requests/:requestId")
-    .get(async(req,res)=>{
-        const adminId = req.params.adminId;
-        const requestId = req.params.requestId;
-        const request = await Request.findOne({_id:requestId});
-        if(request){
-            const allocated = await allocate(request);
-            if(allocated === true){
-                await Request.deleteOne({_id:request._id});
-                res.redirect("/admin/"+adminId+"/requests");
-            }
-            else{
-                res.render("./admin/error",{
-                    adminId : adminId,
-                    message : "Blood is not available for the specified request.",
-                    link : "/admin/"+adminId+"/requests",
-                    btnText : "Blood Requests"
-                })
-            }
-        }
-        else{
-            res.render("./admin/error",{
-                adminId : adminId,
-                message : "Invalid Request",
-                link : "/admin/"+adminId+"/requests",
-                btnText : "Blood Requests"
-            })
-        }
-    })
-;
-
 router.route("/admin/:adminId/requests/create")
     .get(async(req,res)=>{
         const adminId = req.params.adminId;
@@ -562,6 +571,159 @@ router.route("/admin/:adminId/requests/create")
         });
         await newRequest.save();
         res.redirect("/admin/"+adminId+"/requests");
+    })
+;
+
+router.route("/admin/:adminId/requests/:requestId/allocate/auto")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const requestId = req.params.requestId;
+        const request = await Request.findOne({_id:requestId});
+        if(request){
+            const allocated = await allocate(request);
+            if(allocated === true){
+                await Request.deleteOne({_id:request._id});
+                res.redirect("/admin/"+adminId+"/requests");
+            }
+            else{
+                res.render("./admin/error",{
+                    adminId : adminId,
+                    message : "Auto Allocation Failed. Try Manual Allocation.",
+                    link : "/admin/"+adminId+"/requests",
+                    btnText : "Blood Requests"
+                })
+            }
+        }
+        else{
+            res.render("./admin/error",{
+                adminId : adminId,
+                message : "Invalid Request",
+                link : "/admin/"+adminId+"/requests",
+                btnText : "Blood Requests"
+            })
+        }
+    })
+;
+
+router.route("/admin/:adminId/requests/:requestId/allocate/manual")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const requestId = req.params.requestId;
+        const request = await Request.findOne({_id:requestId});
+        if(request.component === "PLASMA"){
+            const components = await getPlasma();
+            const bloods = await getBlood();
+            res.render("./admin/manualAllocate",{
+                adminId : adminId,
+                request : request,
+                componentName : request.component,
+                components : components,
+                bloods : bloods
+            })
+        }
+        else if(request.component === "PLATELET"){
+            const components = await getPlatelets();
+            const bloods = await getBlood();
+            res.render("./admin/manualAllocate",{
+                adminId : adminId,
+                request : request,
+                componentName : request.component,
+                components : components,
+                bloods : bloods
+            })
+        }
+        else if(request.component === "RBC"){
+            const components = await getRedBlood();
+            const bloods = await getBlood();
+            res.render("./admin/manualAllocate",{
+                adminId : adminId,
+                request : request,
+                componentName : request.component,
+                components : components,
+                bloods : bloods
+            })
+        }
+    })
+;
+
+router.route("/admin/:adminId/requests/:requestId/allocate/manual/:componentId")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const requestId = req.params.requestId;
+        const componentId = req.params.componentId;
+        const request = await Request.findOne({_id:requestId});
+        const allocated = await manualAllocate(request,componentId);
+        if(allocated === true){
+            await Request.deleteOne({_id:request._id});
+            res.redirect("/admin/"+adminId+"/requests");
+        }
+        else{
+            res.render("./admin/error",{
+                adminId : adminId,
+                message : "Some error occurred in Manual Allocation.",
+                link : "/admin/"+adminId+"/requests",
+                btnText : "Blood Requests"
+            })
+        }
+    })
+;
+
+router.route("/admin/:adminId/requests/:requestId/delete")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const requestId = req.params.requestId;
+        try{    
+            await Request.deleteOne({_id:requestId});
+            res.redirect("/admin/"+adminId+"/requests");
+        }
+        catch(err){
+            console.log(err);
+        }
+    })
+;
+
+router.route("/admin/:adminId/allocated")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const allocations = await Allocation.find();
+        res.render("./admin/allocated",{
+            adminId : adminId,
+            allocations : allocations
+        })
+    })
+;
+
+router.route("/admin/:adminId/camps")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const camps = await getBloodCamps();
+        res.render("./admin/bloodCamps",{
+            adminId : adminId,
+            camps : camps
+        })
+    })
+;
+
+router.route("/admin/:adminId/camps/new")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        res.render("./admin/newCamp",{
+            adminId : adminId
+        })
+    })
+    .post(async(req,res)=>{
+        const adminId = req.params.adminId;
+        await newCamp(req.body);
+        res.redirect("/admin/"+adminId+"/camps");
+    })
+;
+
+router.route("/admin/:adminId/camps/delete/:campId")
+    .get(async(req,res)=>{
+        const adminId = req.params.adminId;
+        const campId = req.params.campId;
+        await BloodCamp.deleteOne({_id:campId});
+        res.redirect("/admin/"+adminId+"/camps");
     })
 ;
 

@@ -1,0 +1,20 @@
+h1{
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.main-item{
+    display: flex;
+    justify-content: space-between;
+}
+.main-item-left{
+    width: 50%;
+}
+.main-item-left img{
+    width: 100%;
+}
+
+.main-item-right{
+    width: 50%;
+    margin-top: 100px;
+}

@@ -165,6 +165,21 @@ const componentize = async (report)=>{
     }
 }
 
+const deleteBloodComponent = async (component,id)=>{
+    if(component === "PLASMA"){
+        await Plasma.deleteOne({_id:id});
+    }
+    else if(component === "PLATELET"){
+        await Platelet.deleteOne({_id:id});
+    }
+    else if(component === "BLOOD"){
+        await Blood.deleteOne({_id:id});
+    }
+    else if(component === "REDBLOOD"){
+        await RedBlood.deleteOne({_id:id});
+    }
+}
+
 const getPlasma = async ()=>{
     const today = new Date().getTime();
     let plasmas = await Plasma.find();
@@ -377,4 +392,4 @@ const getRedBloodCount = async ()=>{
     return redBloodCount;
 }
 
-module.exports = {Blood,Plasma,Platelet,RedBlood,componentize,getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount};
+module.exports = {Blood,Plasma,Platelet,RedBlood,componentize,getPlasma,getPlasmaCount,getPlatelets,getPlateletCount,getBlood,getBloodCount,getRedBlood,getRedBloodCount,deleteBloodComponent};

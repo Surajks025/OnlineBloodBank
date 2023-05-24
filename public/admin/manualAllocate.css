@@ -54,26 +54,24 @@ table,tr,td{
 }
 
 .main-table{
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 10px 55px;
+}
+
+.main-table input{
     width: 100%;
-    border: 2px solid black;
-}
-
-.main-table thead{
-    background-color: rgb(203, 203, 203);
-}
-
-.main-table tr{
-    border: 1px solid black;
-}
-
-.main-table tbody tr:hover{
-    background-color: rgb(252, 213, 213);
-    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
 }
 
 .main-table td{
-    border: 1px solid black;
-    text-align: center;
+    text-align: right;
+}
+
+.main-table select{
+    width: 100%;
 }
 
 .main-table th{
@@ -81,24 +79,39 @@ table,tr,td{
     font-size: 19px;
 }
 
-/* Add Object Button */
-.main-item button{
-    margin-top: 20px;
-    height: 40px;
-    width: 170px;
-    background-color: rgba(218, 34, 34,1);
-    border-radius: 5px;
-    border: none;
-    color: white;
+/* ends here */
+
+.main-table-low{
+    width: 100%;
+    border: 2px solid black;
+}
+
+.main-table-low thead{
+    background-color: rgb(203, 203, 203);
+}
+
+.main-table-low tbody tr:hover{
+    background-color: rgb(252, 213, 213);
     font-weight: bold;
 }
 
-.main-item button:hover{
-    background-color: black;
-    cursor: pointer;
+.main-table-low td,.main-table th{
+    border: 1px solid black;
+    text-align: center;
 }
 
-.main-item a{
-    width: 10px;
-    height: 10px;
+.main-table-low button{
+    height: 30px;
+    border-radius: 5px;
+    background-color: rgb(235, 51, 51);
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    border: none;
+    width: 100px;
+}
+
+.main-table-low button:hover{
+    background-color: black;
+    cursor: pointer;
 }

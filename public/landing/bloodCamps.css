@@ -1,0 +1,38 @@
+h1{
+    text-align: center;
+}
+
+table,tr,td{
+    border-collapse:collapse;
+    margin: auto;
+}
+
+/* Main Table */
+.main-table{
+    width: 80%;
+    border: 2px solid black;
+    margin-bottom: 400px;
+}
+
+.main-table thead{
+    background-color: rgb(203, 203, 203);
+}
+
+.main-table tr{
+    border: 1px solid black;
+}
+
+.main-table tbody tr:hover{
+    background-color: rgb(252, 213, 213);
+    font-weight: bold;
+}
+
+.main-table td{
+    border: 1px solid black;
+    text-align: center;
+}
+
+.main-table th{
+    border: 1px solid black;
+    font-size: 19px;
+}

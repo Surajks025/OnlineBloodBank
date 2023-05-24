@@ -49,45 +49,31 @@ table,tr,td{
 
 /* Main Table */
 .main-item{
-    width: 79%;
+    width: 60%;
     text-align: center;
 }
 
 .main-table{
-    width: 100%;
-    border: 2px solid black;
-}
-
-.main-table thead{
-    background-color: rgb(203, 203, 203);
-}
-
-.main-table tr{
-    border: 1px solid black;
-}
-
-.main-table tbody tr:hover{
-    background-color: rgb(252, 213, 213);
-    font-weight: bold;
+    width: 90%;
+    border-collapse: separate;
+    border-spacing: 0 20px;
 }
 
 .main-table td{
-    border: 1px solid black;
-    text-align: center;
+    text-align: left;
 }
 
-.main-table th{
-    border: 1px solid black;
-    font-size: 19px;
+.button-holder{
+    display: flex;
+    justify-content: space-between;
 }
 
 /* Add Object Button */
 .main-item button{
-    margin-top: 20px;
-    height: 40px;
-    width: 170px;
+    width: 150px;
+    height: 50px;
     background-color: rgba(218, 34, 34,1);
-    border-radius: 5px;
+    border-radius: 10px;
     border: none;
     color: white;
     font-weight: bold;
@@ -96,9 +82,4 @@ table,tr,td{
 .main-item button:hover{
     background-color: black;
     cursor: pointer;
-}
-
-.main-item a{
-    width: 10px;
-    height: 10px;
 }

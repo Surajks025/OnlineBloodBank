@@ -1,10 +1,35 @@
 <%- include("../common/header") %>
+<link rel="stylesheet" href="/landing/bloodCamps.css">
 
-<title>Hospitals : Blood Bank</title>
+<title>Blood Camps : Blood Bank</title>
 </head>
 <body>
     <%- include("navbar") %>
     <h1>List of Blood Camps</h1>
+    <table class="main-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Venue</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% camps.forEach((camp,index)=>{ %>
+                <tr>
+                    <td><%= index+1 %></td>
+                    <td><%= camp.name %></td>
+                    <td><%= camp.venue %></td>
+                    <td><%= camp.startDate.getDate()+"/"+(camp.startDate.getMonth()+1)+"/"+camp.startDate.getFullYear() %></td>
+                    <td><%= camp.endDate.getDate()+"/"+(camp.endDate.getMonth()+1)+"/"+camp.endDate.getFullYear() %></td>
+                    <td>10:00 AM - 06:00 PM</td>
+                </tr>
+            <%}) %>
+        </tbody>
+    </table>
     <%- include("../common/footer") %>
 </body>
 </html>

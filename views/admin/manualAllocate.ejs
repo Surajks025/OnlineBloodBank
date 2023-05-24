@@ -1,0 +1,76 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/manualAllocate.css">
+    <title>Manaul Allocation : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Manual Allocation</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <tr>
+                    <td><label for="">Recipient's Aadhar : </label></td>
+                    <td><%= request.aadhar %></td> 
+                    <td><label for="">Recipient's Name : </label></td>
+                    <td><%= request.name %></td>
+                </tr>
+                <tr>
+                    <td><label for="">Component Required : </label></td>
+                    <td><%= request.component %></td>
+                    <td><label for="">Blood Group : </label></td>
+                    <td><%= request.group %></td>
+                </tr>
+                <tr>
+                    <td><label for="">Rh Type : </label></td>
+                    <td><%= request.rh %></td>
+                </tr>
+            </table>
+
+            <table class="main-table-low">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Component Name</th>
+                        <th>Date of Donation</th>
+                        <th>Expiry Date</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                        <th>Allocate</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% components.forEach((component,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= componentName %></td>
+                            <td><%= component.donationDate.getDate()+"/"+(component.donationDate.getMonth()+1)+"/"+component.donationDate.getFullYear() %></td>
+                            <td><%= component.expiryDate.getDate()+"/"+(component.expiryDate.getMonth()+1)+"/"+component.expiryDate.getFullYear() %></td>
+                            <td><%= component.group %></td>
+                            <td><%= component.rh %></td>
+                            <td><a href=<%= "/admin/"+adminId+"/requests/"+request._id+"/allocate/manual/"+component._id %>> <button>Allocate</button> </a></td>
+                        </tr>
+                    <%}) %>
+                    <% bloods.forEach((blood,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td>Whole Blood</td>
+                            <td><%= blood.donationDate.getDate()+"/"+(blood.donationDate.getMonth()+1)+"/"+blood.donationDate.getFullYear() %></td>
+                            <td><%= blood.expiryDate.getDate()+"/"+(blood.expiryDate.getMonth()+1)+"/"+blood.expiryDate.getFullYear() %></td>
+                            <td><%= blood.group %></td>
+                            <td><%= blood.rh %></td>
+                            <td><a href=<%= "/admin/"+adminId+"/requests/"+request._id+"/allocate/manual/"+blood._id %>> <button>Allocate</button> </a></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+
+</body>
+</html>

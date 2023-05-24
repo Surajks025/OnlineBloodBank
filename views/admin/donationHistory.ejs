@@ -2,12 +2,12 @@
 
     <link rel="stylesheet" href="/admin/donations.css">
 
-    <title>Verified Donations : Blood Bank</title>
+    <title>Donation History : Blood Bank</title>
 </head>
 <body>
     <%-include("navbar")%>
 
-    <h1>Verified Donations</h1>
+    <h1>Donation History</h1>
 
     <section class="main">
         <%- include("sidebar") %>
@@ -17,7 +17,6 @@
                     <tr>
                         <th>#</th>
                         <th>Aadhar No.</th>
-                        <th>Status</th>
                         <th>Report</th>
                     </tr>
                 </thead>
@@ -26,7 +25,6 @@
                         <tr>
                             <td><%= i+1 %></td>
                             <td> <a href=<%= "/admin/"+adminId+"/donors/"+donations[i].aadhar %>><%= donations[i].aadhar %></a> </td>
-                            <td><%= donations[i].STATUS %></td>
                             <td> <a href= <%= "/admin/"+adminId+"/reports/"+donations[i].reportId %>>View Report >>></a> </td>
                         </tr>
                     <%} %>

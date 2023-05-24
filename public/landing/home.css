@@ -11,6 +11,7 @@ table,tr,td{
     display:flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 80px;
 }
 .main-home-item{
     width: 50%;
@@ -47,6 +48,11 @@ table,tr,td{
 }
 
 /* Dashboard */
+#mid-section h3{
+    display: inline;
+    margin: 0 145px;
+    color: red;
+}
 .dash-table{
     margin-left: 300px;
     margin-bottom: 30px;

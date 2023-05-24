@@ -1,0 +1,42 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/newCamp.css">
+    <title>New Blood Camp : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>New Blood Camp</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <form action= <%= "/admin/"+adminId+"/camps/new" %>  method="post">
+                <table class="main-table">
+                    <tr>
+                        <td><label for="">Name of the Camp : </label></td>
+                        <td><input type="text" name="name" required></td> 
+                        <td><label for="">Venue : </label></td>
+                        <td><input type="text" name="venue" required></td>
+                    </tr>
+                    <tr>
+                        <td><label for="">Start Date : </label></td>
+                        <td><input type="date" name="startDate" required></td>
+                        <td><label for="">End Date : </label></td>
+                        <td><input type="date" name="endDate" required></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><button type="submit">Create</button></td>
+                        <td><button type="reset">Reset</button></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+    </section>
+
+    <%-include("../common/footer")%>
+
+</body>
+</html>

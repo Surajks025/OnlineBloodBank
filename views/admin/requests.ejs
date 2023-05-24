@@ -23,7 +23,7 @@
                         <th>Blood Group</th>
                         <th>Rh Factor</th>
                         <th>Hospital</th>
-                        <th>Allocate</th>
+                        <th colspan="3">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,11 +36,13 @@
                         <td><%= request.group %></td>
                         <td><%= request.rh %></td>
                         <td><a href=<%= "/admin/"+adminId+"/hospitals/"+request.hospitalId %>>View Hospital</a></td>
-                        <td> <a href=<%= "/admin/"+adminId+"/requests/"+request._id %>>Allocate>>></a></td>
+                        <td><a href=<%= "/admin/"+adminId+"/requests/"+request._id+"/allocate/auto" %>>Auto Allocate</a></td>
+                        <td><a href=<%= "/admin/"+adminId+"/requests/"+request._id+"/allocate/manual" %>>Manually Allocate</a></td>
+                        <td> <a href=<%= "/admin/"+adminId+"/requests/"+request._id+"/delete"%>>Delete</a></td>
                     <% }) %>
                 </tbody>
             </table> <br>
-            <a href=<%= "/admin/"+adminId+"/requests/create" %>> <button>+ New Request</button> </a>
+            <a href= <%= "/admin/"+adminId+"/requests/create" %>> <button>+ New Request</button> </a>
         </div>
     </section>
     <%-include("../common/footer")%>

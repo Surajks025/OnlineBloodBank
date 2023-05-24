@@ -1,0 +1,50 @@
+h1{
+    text-align: center;
+}
+
+.main{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* SideBar */
+
+.side-bar{
+    width: 20%;
+}
+
+.side-table{
+    background-color: rgba(218, 34, 34,1);
+    color: white;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.side-table td{
+    padding: 10px 10px;
+}
+
+.side-table th{
+    font-size: 20px;
+}
+
+.side-table a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+
+.side-table a:hover{
+    color: red;
+    font-weight: bold;
+}
+
+.side-table tbody tr:hover{
+    background-color : black;
+}
+
+/* Main Table */
+.main-item{
+    width: 75%;
+    text-align: center;
+}

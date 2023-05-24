@@ -18,6 +18,9 @@ const Donor = require("./models/donor.js");
 
 const {Hospital} = require("./models/hospital.js");
 const {getPlasmaCount,getPlateletCount,getBloodCount,getRedBloodCount}=require("./models/bloodComponents.js");
+const {VerifiedDonation} = require("./models/verifiedDonation.js");
+const {Request,Allocation} = require("./models/request.js");
+const {getBloodCamps} = require("./models/bloodCamp.js");
 
 //creating app
 const app = express();
@@ -45,11 +48,17 @@ app.route("/")
         let countRBC = await getRedBloodCount();
         let countPlatelets = await getPlateletCount();
         let countBloods = await getBloodCount();
+        let verifiedDonations = await VerifiedDonation.find();
+        let allocated = await Allocation.find();
+        let requests = await Request.find();
         res.render("./landing/home",{
             countPlasmas:countPlasmas,
             countRBCs : countRBC,
             countPlatelets : countPlatelets,
-            countBloods : countBloods
+            countBloods : countBloods,
+            verifiedDonations : verifiedDonations,
+            allocated : allocated,
+            requests : requests
         });
     })
 ;
@@ -67,8 +76,13 @@ app.route("/hospitals")
     })
 ;
 
-app.route("/bloodCamps")
-    .get((req,res)=>res.render("./landing/bloodCamps"))
+app.route("/camps")
+    .get(async (req,res)=>{
+        const camps = await getBloodCamps();
+        res.render("./landing/bloodCamps",{
+            camps:camps
+        })
+    })
 ;
 
 app.route("/login")

@@ -1,10 +1,45 @@
-<%- include("header") %>
+<%-include("../common/header")%>
 
-<title>Hospitals : Blood Bank</title>
+    <link rel="stylesheet" href="/admin/camps.css">
+    <title>Blood Camps : Blood Bank</title>
 </head>
 <body>
-    <%- include("navbar") %>
-    <h1>List of Blood Camps</h1>
-    <%- include("footer") %>
+    <%-include("navbar")%>
+
+    <h1>Blood Camps</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Venue</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% camps.forEach((camp,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= camp.name %></td>
+                            <td><%= camp.venue %></td>
+                            <td><%= camp.startDate.getDate()+"/"+(camp.startDate.getMonth()+1)+"/"+camp.startDate.getFullYear() %></td>
+                            <td><%= camp.endDate.getDate()+"/"+(camp.endDate.getMonth()+1)+"/"+camp.endDate.getFullYear() %></td>
+                            <td>10:00 AM - 06:00 PM</td>
+                            <td><a href=<%= "/admin/"+adminId+"/camps/delete/"+camp._id %>>Delete</a></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table>
+            <a href= <%= "/admin/"+adminId+"/camps/new" %> ><button>+ New Blood Camp</button></a>
+        </div>
+    </section>
+    <%-include("../common/footer")%>
 </body>
 </html>

@@ -48,6 +48,12 @@ table,tr,td{
 }
 
 /* Dashboard */
+.main-item h3{
+    display: inline;
+    margin: 0 90px;
+    color: red;
+}
+
 .dash-table{
     margin-left: 100px ;
     margin-bottom: 30px;
@@ -73,6 +79,7 @@ table,tr,td{
 .main-item{
     width: 79%;
     text-align: center;
+    margin: 50px 0;
 }
 
 .main-table{

@@ -71,22 +71,26 @@ const Allocation = new mongoose.model("Allocation",allocationSchema);
 
 const Request = new mongoose.model("Request",requestSchema);
 
+const allocationRecord = async(rAadhar,name,dAadhar,hospitalId,component,group,rh)=>{
+    const newAllocation = new Allocation({
+        allocationDate : new Date(),
+        recipientAadhar : rAadhar,
+        recipientName : name,
+        donorAadhar : dAadhar,
+        hospitalId : hospitalId,
+        component : component,
+        group : group,
+        rh : rh
+    });
+    await newAllocation.save();
+}
+
 const allocation = async (components,request)=>{
     let allocatedId = null;
     for(let i=0;i<components.length;i++){
         if(components[i].group === request.group && components[i].rh===request.rh){
             allocatedId = components[i]._id;
-            const newAllocation = new Allocation({
-                allocationDate : new Date(),
-                recipientAadhar : request.aadhar,
-                recipientName : request.name,
-                donorAadhar : components[i].aadhar,
-                hospitalId : request.hospitalId,
-                component : request.component,
-                group : components[i].group,
-                rh : components[i].rh
-            });
-            await newAllocation.save();
+            await allocationRecord(request.aadhar,request.name,components[i].aadhar,request.hospitalId,request.component,components[i].group,components[i].rh);
             break;
         }
     }
@@ -130,4 +134,34 @@ const allocate = async (request)=>{
     return allocated;
 }
 
-module.exports = {Request,allocate};
+const manualAllocate = async(request,componentId)=>{
+    let component = null;
+    let allocated = false;
+    if(request.component === "PLASMA"){
+        component = await Plasma.findOne({_id:componentId});
+        await allocationRecord(request.aadhar,request.name,component.aadhar,request.hospitalId,request.component,component.group,component.rh);
+        await Plasma.deleteOne({_id : component._id});
+        allocated = true;
+    }
+    else if(request.component==="PLATELET"){
+        component = await Platelet.findOne({_id:componentId});
+        await allocationRecord(request.aadhar,request.name,component.aadhar,request.hospitalId,request.component,component.group,component.rh);
+        await Platelet.deleteOne({_id : component._id});
+        allocated = true;
+    }
+    else if(request.component === "RBC"){
+        component = await RedBlood.findOne({_id:componentId});
+        await allocationRecord(request.aadhar,request.name,component.aadhar,request.hospitalId,request.component,component.group,component.rh);
+        await RedBlood.deleteOne({_id : component._id});
+        allocated = true;
+    }
+    else{
+        component = await Blood.findOne({_id:componentId});
+        await allocationRecord(request.aadhar,request.name,component.aadhar,request.hospitalId,request.component,component.group,component.rh);
+        await Blood.deleteOne({_id : component._id});
+        allocated = true;
+    }
+    return allocated;
+}
+
+module.exports = {Request,allocate,manualAllocate,Allocation};

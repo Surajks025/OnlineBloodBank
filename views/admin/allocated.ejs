@@ -1,0 +1,45 @@
+<%-include("../common/header")%>
+
+    <link rel="stylesheet" href="/admin/hospitals.css">
+    <title>Allocated Bloods : Blood Bank</title>
+</head>
+<body>
+    <%-include("navbar")%>
+
+    <h1>Allocated Bloods</h1>
+
+    <section class="main">
+        <%- include("sidebar") %>
+        <div class="main-item">
+            <table class="main-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Recipient's Aadhar</th>
+                        <th>Recipient's Name</th>
+                        <th>Donor's Aadhar</th>
+                        <th>Component</th>
+                        <th>Blood Group</th>
+                        <th>Rh Factor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% allocations.forEach((allocation,index)=>{ %>
+                        <tr>
+                            <td><%= index+1 %></td>
+                            <td><%= allocation.recipientAadhar %></td>
+                            <td><%= allocation.recipientName %></td>
+                            <td><%= allocation.donorAadhar %></td>
+                            <td><%= allocation.component %></td>
+                            <td><%= allocation.group %></td>
+                            <td><%= allocation.rh %></td>
+                        </tr>
+                    <%}) %>
+                </tbody>
+            </table>
+        </div>
+    </section>
+    
+    <%-include("../common/footer")%>
+</body>
+</html>

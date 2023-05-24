@@ -1,6 +1,6 @@
 <%-include("../common/header")%>
 
-    <link rel="stylesheet" href="/admin/hospital.css">
+    <link rel="stylesheet" href="/admin/donor.css">
     <title>Donor : Blood Bank</title>
 </head>
 <body>
@@ -48,11 +48,12 @@
                     <td class="left-col">Date of Registration : </td>
                     <td class="right-col"> <%= donor.dateOfRegistration.getDate()+"/"+(donor.dateOfRegistration.getMonth()+1)+"/"+donor.dateOfRegistration.getFullYear() %> </td>
                 </tr>
-                <tr>
-                    <td class="left-col"><a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/edit" %> ><button>Edit</button></a></td>
-                    <td class="right-col"><a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/delete" %> ><button onclick="return recheck();">Delete</button></a></td>
-                </tr>
             </table>
+            <div class="button-holder">
+                <a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/edit" %> ><button>Edit</button></a>
+                <a href= <%= "/admin/"+adminId+"/donors/"+donor.aadhar+"/history" %> ><button>Donation History</button></a>
+                <a href= <%= "/admin/"+adminId+"/donors/"+donor._id+"/delete" %> ><button onclick="return recheck();">Delete</button></a>
+            </div>
         </div>
     </section>
     
