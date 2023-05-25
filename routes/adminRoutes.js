@@ -392,6 +392,9 @@ router.route("/admin/:adminId/pendingDonations")
                             btnText : "Pending Donation"
                         })
                     }
+                    else{
+                        res.redirect("/admin/"+adminId+"/donations/add/"+donor._id);
+                    }
                 }
                 else{
                     res.redirect("/admin/"+adminId+"/donations/add/"+donor._id);
